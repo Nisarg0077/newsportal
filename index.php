@@ -9,6 +9,7 @@
 <body>
     This is main page.
     rushabh123
+    Nisarg 123
     <a class="text-blue-500" href="./Admin/LogIn.php">Admin</a>
 </body>
 </html>
