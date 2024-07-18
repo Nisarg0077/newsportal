@@ -8,6 +8,7 @@
 </head>
 <body>
     This is main page.
+    rushabh
     <a class="text-blue-500" href="./Admin/LogIn.php">Admin</a>
 </body>
 </html>
