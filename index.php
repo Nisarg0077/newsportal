@@ -8,9 +8,6 @@
 </head>
 <body>
     This is main page.
-    This page will updated soon.
-    Changed in main
-    helli
     <a class="text-blue-500" href="./Admin/LogIn.php">Admin</a>
 </body>
 </html>
