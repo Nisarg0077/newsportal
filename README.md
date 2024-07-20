@@ -1,2 +1,2 @@
 # News Everyday
-news portal site
+Get updated by using News Everyday.
