@@ -107,6 +107,3 @@ while ($row=mysqli_fetch_array($query)) {
  
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
-  </body>
-
-</html>
