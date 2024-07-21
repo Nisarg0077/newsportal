@@ -1,6 +1,6 @@
 <?php 
-session_start();
-include('./conn.php');
+  session_start();
+  include('./conn.php');
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -9,18 +9,19 @@ include('./conn.php');
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
-
-    <title>News Everyday | Home Page</title>
-
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <title>News Everyday</title>
   </head>
 
   <body>
 
     <!-- Navigation -->
-   <?php include('./includes/header.php');?>
+    
+    <?php include('./includes/header.php');?>
+    
 
     <!-- Page Content -->
-    <div class="container mx-auto sm:px-4">
+    <div class=" w-9/12 container mx-auto sm:px-4">
 
 
      
@@ -30,44 +31,45 @@ include('./conn.php');
         <div class="md:w-2/3 pr-4 pl-4">
 
           <!-- Blog Post -->
-<?php 
-     if (isset($_GET['pageno'])) {
-            $pageno = $_GET['pageno'];
-        } else {
-            $pageno = 1;
-        }
-        $no_of_records_per_page = 8;
-        $offset = ($pageno-1) * $no_of_records_per_page;
+          <?php 
+            if (isset($_GET['pageno'])) {
+                $pageno = $_GET['pageno'];
+            } else {
+                $pageno = 1;
+            }
+              $no_of_records_per_page = 8;
+              $offset = ($pageno-1) * $no_of_records_per_page;
 
 
-        $total_pages_sql = "SELECT COUNT(*) FROM tblposts";
-        $result = mysqli_query($con,$total_pages_sql);
-        $total_rows = mysqli_fetch_array($result)[0];
-        $total_pages = ceil($total_rows / $no_of_records_per_page);
+              $total_pages_sql = "SELECT COUNT(*) FROM tblposts";
+              $result = mysqli_query($con,$total_pages_sql);
+              $total_rows = mysqli_fetch_array($result)[0];
+              $total_pages = ceil($total_rows / $no_of_records_per_page);
 
-$sqlcmd = "select tblposts.id as pid,tblposts.PostTitle as posttitle,tblposts.PostImage,tblcategory.CategoryName as category,tblcategory.id as cid,tblsubcategory.Subcategory as subcategory,tblposts.PostDetails as postdetails,tblposts.PostingDate as postingdate,tblposts.PostUrl as url from tblposts left join tblcategory on tblcategory.id=tblposts.CategoryId left join  tblsubcategory on  tblsubcategory.SubCategoryId=tblposts.SubCategoryId where tblposts.Is_Active=1 order by tblposts.id desc  LIMIT $offset, $no_of_records_per_page";
-$query=mysqli_query($con,$sqlcmd);
+              $sqlcmd = "select tblposts.id as pid,tblposts.PostTitle as posttitle,tblposts.PostImage,tblcategory.CategoryName as category,tblcategory.id as cid,tblsubcategory.Subcategory as subcategory,tblposts.PostDetails as postdetails,tblposts.PostingDate as postingdate,tblposts.PostUrl as url from tblposts left join tblcategory on tblcategory.id=tblposts.CategoryId left join  tblsubcategory on  tblsubcategory.SubCategoryId=tblposts.SubCategoryId where tblposts.Is_Active=1 order by tblposts.id desc  LIMIT $offset, $no_of_records_per_page";
+              $query=mysqli_query($con,$sqlcmd);
 
-while ($row=mysqli_fetch_array($query)) {
-?>
+              while ($row=mysqli_fetch_array($query)) {
+          ?>
 
-          <div class="relative flex flex-col min-w-0 rounded break-words border bg-white border-1 border-gray-300 mb-4">
- <img class="w-full rounded rounded-t" src="Admin/postimages/<?php echo htmlentities($row['PostImage'])?>" alt="<?php echo htmlentities($row['posttitle']);?>">
+          <div class="relative flex flex-col min-w-0 rounded break-words border bg-white border-1 border-black mb-4">
+          <img class="w-full rounded rounded-t" src="Admin/postimages/<?php echo htmlentities($row['PostImage'])?>" alt="<?php echo htmlentities($row['posttitle']);?>">
             <div class="flex-auto p-6">
               <h2 class="mb-3"><?php echo htmlentities($row['posttitle']);?></h2>
                  <p><!--category-->
- <a class="inline-block p-1 text-center font-semibold text-sm align-baseline leading-none rounded bg-gray-600 text-decoration-none link-light" href="category.php?catid=<?php echo htmlentities($row['cid'])?>" style="color:#fff"><?php echo htmlentities($row['category']);?></a>
-<!--Subcategory--->
-  <a class="inline-block p-1 text-center font-semibold text-sm align-baseline leading-none rounded bg-gray-600 text-decoration-none link-light"  style="color:#fff"><?php echo htmlentities($row['subcategory']);?></a></p>
+                  <a class="inline-block p-1 text-center font-semibold text-sm align-baseline leading-none rounded bg-gray-600 text-decoration-none link-light" href="category.php?catid=<?php echo htmlentities($row['cid'])?>" style="color:#fff"><?php echo htmlentities($row['category']);?></a>
+                  <!--Subcategory--->
+                  <a class="inline-block p-1 text-center font-semibold text-sm align-baseline leading-none rounded bg-gray-600 text-decoration-none link-light"  style="color:#fff"><?php echo htmlentities($row['subcategory']);?></a></p>
        
-              <a href="news-details.php?nid=<?php echo htmlentities($row['pid'])?>" class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-1 px-3 leading-normal no-underline bg-blue-600 text-white hover:bg-blue-600">Read More &rarr;</a>
+              <a href="news-details.php?nid=<?php echo htmlentities($row['pid'])?>" class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-1 px-3 leading-normal no-underline bg-blue-900 text-white hover:bg-blue-900">Read More &rarr;</a>
             </div>
             <div class="py-3 px-6 bg-gray-200 border-t-1 border-gray-300 text-gray-700">
               Posted on <?php echo htmlentities($row['postingdate']);?>
            
             </div>
           </div>
-<?php } ?>
+<?php } 
+?>
        
 
       
@@ -101,8 +103,8 @@ while ($row=mysqli_fetch_array($query)) {
 
 
     <!-- Bootstrap core JavaScript -->
-    <!-- <script src="vendor/jquery/jquery.min.js"></script>
-    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script> -->
+     <script src="vendor/jquery/jquery.min.js"></script>
+    <!--<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script> -->
 
  
     <script src="https://cdn.tailwindcss.com"></script>

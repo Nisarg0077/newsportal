@@ -1,8 +1,9 @@
-<nav class="sticky flex items-center justify-between pt-0 py-4 px-6 bg-gray-900 text-white shadow-md z-50">
+<nav class="navbar relative flex items-center justify-between py-4 px-6 bg-gray-900 text-white shadow-md">
     <div class="container mx-auto flex items-center justify-between">
         <!-- Logo -->
-        <a href="index.php" class="flex items-center">
-            <img src="images/logo.png" alt="Logo" class="h-10">
+        <a href="index.php" class="flex items-center text-2">
+            <!-- <img src="" alt="Logo" class="h-10" > -->
+             News Everyday
         </a>
 
         <!-- Mobile Menu Button -->

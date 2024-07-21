@@ -32,6 +32,7 @@ if(isset($_POST['login']))
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login Form</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    
 </head>
 <body class="bg-gray-100 flex items-center justify-center h-screen">
 <div class="w-full max-w-xs">
