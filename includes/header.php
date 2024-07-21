@@ -28,7 +28,7 @@
                     <a href="contact-us.php" class="block font-bold py-2 px-4 rounded hover:bg-gray-700 transition duration-300">Contact Us</a>
                 </li>
                 <li>
-                    <a href="../../newsportal/Admin/LogIn.php" class="block font-bold py-2 px-4 rounded bg-yellow-500 hover:bg-gray-700 transition duration-300">Admin</a>
+                    <a href="../../newsportal/Admin/" class="block font-bold py-2 px-4 rounded bg-yellow-500 hover:bg-gray-700 transition duration-300">Admin</a>
                 </li>
             </ul>
         </div>
@@ -51,7 +51,7 @@
                     <a href="contact-us.php" class="block font-bold py-2 px-4 hover:bg-gray-700 transition duration-300 w-full text-center">Contact Us</a>
                 </li>
                 <li>
-                    <a href="admin/" class="block font-bold py-2 px-4 bg-yellow-500 hover:bg-gray-700 transition duration-300 w-full text-center">Admin</a>
+                    <a href="../../newsportal/Admin/" class="block font-bold py-2 px-4 bg-yellow-500 hover:bg-gray-700 transition duration-300 w-full text-center">Admin</a>
                 </li>
             </ul>
         </div>
