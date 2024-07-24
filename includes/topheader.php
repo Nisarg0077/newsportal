@@ -1,55 +1,50 @@
-<header class="bg-gray-900 text-white fixed w-full top-0 z-50">
-    <div class="container mx-auto flex justify-between items-center p-4">
-        <!-- LOGO -->
-        <a href="index.html" class="text-lg font-semibold text-blue-600 flex items-center">
-            <span>NEWS<span class="font-normal">PORTAL</span></span>
+<div class="flex items-center justify-between bg-gray-800 p-4">
+    <!-- LOGO -->
+    <div class="flex justify-start items-center">
+        <a href="index.html" class="text-white text-2xl font-bold flex items-center">
+            <span>NEWS<span class="text-yellow-500"> EVERYDAY</span></span>
             <i class="mdi mdi-layers ml-2"></i>
         </a>
-        <!-- Mobile Menu Button -->
-        <button class="md:hidden flex items-center p-2 border rounded text-blue-600 border-blue-600 hover:text-white hover:bg-blue-600" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-            <i class="mdi mdi-menu text-2xl"></i>
+        <button id="toggleButton" class=" p-2 border border-transparent ml-3 rounded hover:bg-gray-800 focus:outline-none">
+            <i class="fa-solid fa-bars text-white text-2xl"></i>
         </button>
+
+        
     </div>
 
-    <div class="container mx-auto hidden md:flex justify-between items-center" id="navbarResponsive">
-        <!-- Navbar-left -->
-        <ul class="flex items-center space-x-4 md:space-x-6">
-            <li>
-                <button class="text-blue-600 hover:text-blue-800 focus:outline-none">
-                    <i class="mdi mdi-menu text-2xl"></i>
-                </button>
-            </li>
-        </ul>
+    
+    <!-- Button mobile view to collapse sidebar menu -->
+    <!-- <div class="flex justify-start">
+        
+    </div> -->
+    
 
-        <!-- Right(Notification) -->
-        <ul class="flex items-center space-x-4 md:space-x-6 ml-auto">
-            <li class="relative">
-                <a href="#" class="flex items-center">
-                    <img src="assets/images/users/avatar-1.jpg" alt="user-img" class="w-8 h-8 rounded-full">
-                </a>
-                <ul class="absolute right-0 mt-2 w-48 bg-white shadow-lg rounded-lg py-2 hidden group-hover:block">
-                    <li class="px-4 py-2 text-gray-800">
-                        <h5>Hi, Admin</h5>
-                    </li>
-                    <li class="px-4 py-2 hover:bg-gray-200">
-                        <a href="change-password.php" class="flex items-center text-gray-600">
-                            <i class="ti-settings mr-2"></i> Change Password
-                        </a>
-                    </li>
-                    <li class="px-4 py-2 hover:bg-gray-200">
-                        <a href="logout.php" class="flex items-center text-gray-600">
-                            <i class="ti-power-off mr-2"></i> Logout
-                        </a>
-                    </li>
-                </ul>
-            </li>
-        </ul>
+    <!-- Right(Notification) -->
+    <div class="flex items-center">
+        <div class="relative">
+            <a href="#" class="flex items-center text-white" id="user-menu-button" aria-expanded="true">
+                <img src="../assets/images/users/avatar-1.jpg" alt="user-img" class="w-8 h-8 rounded-full">
+            </a>
+
+            <!-- Dropdown -->
+            <div class="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 z-50 hidden" id="user-menu">
+                <p class="px-4 py-2 text-gray-700">Hi, Admin</p>
+                <a href="change-password.php" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Change Password</a>
+                <a href="logout.php" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Logout</a>
+            </div>
+        </div>
     </div>
-</header>
+</div>
 
 <script>
-    // Toggle the menu on mobile
-    document.querySelector('button[aria-controls="navbarResponsive"]').addEventListener('click', function () {
-        document.getElementById('navbarResponsive').classList.toggle('hidden');
+    document.getElementById('user-menu-button').addEventListener('click', function() {
+        const userMenu = document.getElementById('user-menu');
+        userMenu.classList.toggle('hidden');
     });
+    // $(document).ready(function() {
+    // $('#user-menu-button').on('click', function() {
+    //     $('#user-menu').toggle();
+    // });
+    // });
+
 </script>
