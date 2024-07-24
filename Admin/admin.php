@@ -1,6 +1,6 @@
 <?php
     session_start();
-    include('../conn.php');
+        include('../conn.php');
     error_reporting(0);
     if(strlen($_SESSION['login'])==0)
     { 
