@@ -1,4 +1,4 @@
-<div class="flex items-center justify-between bg-gray-800 p-4">
+<div class="flex items-center min-w-full justify-between bg-gray-800 p-4">
     <!-- LOGO -->
     <div class="flex justify-start items-center">
         <a href="index.html" class="text-white text-2xl font-bold flex items-center">

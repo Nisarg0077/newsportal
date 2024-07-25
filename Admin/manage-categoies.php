@@ -44,22 +44,22 @@ if($_REQUEST['action']=='parmdel' &&$_REQUEST['rid'])
 </head>
 
 
-    <body class="bg-gray-100">
+    <body class="bg-gray-100 min-w-full sm:min-w-full">
     <?php include('../includes/topheader.php'); ?>
     <div id="wrapper" class="flex flex-row min-h-screen">
         <div id="toggleContent">
             <?php include('../includes/leftsidebar.php'); ?>
         </div>
-        <div class="content-page">
-    <div class="content">
-        <div class="container mx-auto p-6">
+        <div class="content-page w-10/12">
+    <div class="content ">
+        <div class="container mx-auto p-6 ">
             <div class="row mb-6">
                 <div class="col-xs-12">
                 <div class="mb-6">
                     <div class="text-xl font-semibold mb-2">Manage Category</div>
-                    <ol class="flex space-x-4 text-sm text-gray-500">
-                        <li><a href="./admin.php" class="hover:text-gray-900">Admin</a></li>
-                        <li><a href="#" class="hover:text-gray-900">Category</a></li>
+                    <ol class="flex space-x-1.5 justify-end text-sm text-gray-500">
+                        <li><a href="./admin.php" class="hover:text-gray-900">Admin /</a></li>
+                        <li><a href="#" class="hover:text-gray-900">Category /</a></li>
                         <li class="text-gray-900">Manage Category</li>
                     </ol>
                 </div>
