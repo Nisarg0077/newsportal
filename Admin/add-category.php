@@ -31,7 +31,7 @@ if(strlen($_SESSION['login'])==0) {
     <link rel="stylesheet" href="https://cdn.materialdesignicons.com/5.4.55/css/materialdesignicons.min.css">
     <script src="../assets/js/modernizr.min.js"></script>
 </head>
-<body class="bg-gray-100">
+<body class="bg-gray-100 min-w-full sm:min-w-full">
     <?php include('../includes/topheader.php'); ?>
     <div id="wrapper" class="flex flex-row min-h-screen">
         <div id="toggleContent">
@@ -41,9 +41,9 @@ if(strlen($_SESSION['login'])==0) {
             <div class="container mx-auto py-6">
                 <div class="mb-6">
                     <div class="text-xl font-semibold mb-2">Add Category</div>
-                    <ol class="flex space-x-4 text-sm text-gray-500">
-                        <li><a href="#" class="hover:text-gray-900">Admin</a></li>
-                        <li><a href="#" class="hover:text-gray-900">Category</a></li>
+                    <ol class="flex space-x-1.5 text-sm text-gray-500">
+                        <li><a href="#" class="hover:text-gray-900">Admin /</a></li>
+                        <li><a href="#" class="hover:text-gray-900">Category /</a></li>
                         <li class="text-gray-900">Add Category</li>
                     </ol>
                 </div>
@@ -59,7 +59,7 @@ if(strlen($_SESSION['login'])==0) {
                         <strong>Oh snap!</strong> <?php echo htmlentities($error); ?>
                     </div>
                     <?php } ?>
-                    <form class="space-y-4" name="category" method="post">
+                    <form class="space-y-4 min-w-full" name="category" method="post">
                         <div class="flex items-center">
                             <label class="w-1/5 text-gray-700">Category</label>
                             <div class="w-4/5">
