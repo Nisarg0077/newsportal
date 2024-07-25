@@ -2,22 +2,28 @@
 session_start();
 include('../conn.php');
 error_reporting(0);
-if(strlen($_SESSION['login'])==0) {
-    header('location:index.php');
-} else {
-    if(isset($_POST['submit'])) {
-        $category = $_POST['category'];
-        $description = $_POST['description'];
-        $status = 1;
-        $query = mysqli_query($con, "INSERT INTO tblcategory (CategoryName, Description, Is_Active) VALUES ('$category', '$description', '$status')");
-        if($query) {
-            $msg = "Category created";
-        } else {
-            $error = "Something went wrong. Please try again.";
-        }
-    }
+if(strlen($_SESSION['login'])==0)
+  { 
+header('location:index.php');
+}
+else{
+if(isset($_POST['submit']))
+{
+$catid=intval($_GET['cid']);
+$category=$_POST['category'];
+$description=$_POST['description'];
+$query=mysqli_query($con,"Update  tblcategory set CategoryName='$category',Description='$description' where id='$catid'");
+if($query)
+{
+$msg="Category Updated successfully ";
+}
+else{
+$error="Something went wrong . Please try again.";    
+} 
+}
 
-        ?>
+
+?>
 
 
 <!DOCTYPE html>
@@ -40,15 +46,15 @@ if(strlen($_SESSION['login'])==0) {
         <div class="content p-5 flex flex-col w-full">
             <div class="container mx-auto py-6">
                 <div class="mb-6">
-                    <div class="text-xl font-semibold mb-2">Add Category</div>
+                    <div class="text-xl font-semibold mb-2">Edit Category</div>
                     <ol class="flex space-x-4 text-sm text-gray-500">
-                        <li><a href="#" class="hover:text-gray-900">Admin</a></li>
+                        <li><a href="./admin.php" class="hover:text-gray-900">Admin</a></li>
                         <li><a href="#" class="hover:text-gray-900">Category</a></li>
-                        <li class="text-gray-900">Add Category</li>
+                        <li class="text-gray-900">Edit Category</li>
                     </ol>
                 </div>
                 <div class="bg-white p-6 rounded-lg shadow-md">
-                    <h4 class="text-lg font-semibold mb-4">Add Category</h4>
+                    <h4 class="text-lg font-semibold mb-4">Edit Category</h4>
                     <?php if($msg){ ?>
                     <div class="mb-4 p-3 rounded bg-green-200 text-green-800 border border-green-300">
                         <strong>Well done!</strong> <?php echo htmlentities($msg); ?>
@@ -59,24 +65,32 @@ if(strlen($_SESSION['login'])==0) {
                         <strong>Oh snap!</strong> <?php echo htmlentities($error); ?>
                     </div>
                     <?php } ?>
-                    <form class="space-y-4" name="category" method="post">
+                    <?php 
+$catid=intval($_GET['cid']);
+$query=mysqli_query($con,"Select id,CategoryName,Description,PostingDate,UpdationDate from tblcategory where Is_Active=1 and id='$catid'");
+$cnt=1;
+while($row=mysqli_fetch_array($query))
+{
+?>
+    <form class="space-y-4" name="category" method="post">
                         <div class="flex items-center">
                             <label class="w-1/5 text-gray-700">Category</label>
                             <div class="w-4/5">
-                                <input type="text" class="w-full p-2 border border-gray-300 rounded" name="category" required>
+                                <input type="text" class="w-full p-2 border border-gray-300 rounded" value="<?php echo htmlentities($row['CategoryName']);?>" name="category" required>
                             </div>
                         </div>
                         <div class="flex items-center">
                             <label class="w-1/5 text-gray-700">Category Description</label>
                             <div class="w-4/5">
-                                <textarea class="w-full p-2 border border-gray-300 rounded" rows="5" name="description" required></textarea>
+                                <textarea class="w-full p-2 border border-gray-300 rounded" rows="5" name="description" required><?php echo htmlentities($row['Description']);?></textarea>
                             </div>
                         </div>
                         <div class="flex justify-end">
                             <button type="submit" class="bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700" name="submit">Submit</button>
                         </div>
                     </form>
-                </div>
+                <?php }?>
+             </div>
             </div>
         </div>
     </div>
@@ -127,4 +141,4 @@ if(strlen($_SESSION['login'])==0) {
     <script src="../assets/js/jquery.app.js"></script>
 </body>
 </html>
-<?php }  ?>
+<?php } ?>
