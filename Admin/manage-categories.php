@@ -40,7 +40,6 @@ if($_REQUEST['action']=='parmdel' &&$_REQUEST['rid'])
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="https://cdn.materialdesignicons.com/5.4.55/css/materialdesignicons.min.css">
     <script src="../assets/js/modernizr.min.js"></script>
-
 </head>
 
 
@@ -116,7 +115,7 @@ if($_REQUEST['action']=='parmdel' &&$_REQUEST['rid'])
                 <td class="border border-gray-200 px-4 py-2"><?php echo htmlentities($row['UpdationDate']); ?></td>
                 <td class="border border-gray-200 px-4 py-2">
                     <a href="edit-category.php?cid=<?php echo htmlentities($row['id']); ?>" class="text-blue-500"><i class="fa fa-pencil"></i></a>
-                    &nbsp;<a href="./manage-categoies.php?rid=<?php echo htmlentities($row['id']); ?>&&action=del" class="text-red-500"><i class="fa fa-trash"></i></a>
+                    &nbsp;<a href="./manage-categories.php?rid=<?php echo htmlentities($row['id']); ?>&&action=del" class="text-red-500"><i class="fa fa-trash"></i></a>
                 </td>
             </tr>
         <?php
@@ -163,8 +162,8 @@ if($_REQUEST['action']=='parmdel' &&$_REQUEST['rid'])
                 <td class="border border-gray-200 px-4 py-2"><?php echo htmlentities($row['PostingDate']); ?></td>
                 <td class="border border-gray-200 px-4 py-2"><?php echo htmlentities($row['UpdationDate']); ?></td>
                 <td class="border border-gray-200 px-4 py-2">
-                    <a href="./manage-categoies.php?resid=<?php echo htmlentities($row['id']); ?>" class="text-blue-500"><i class="fa-solid fa-arrows-rotate"></i></i></a>
-                    &nbsp;<a href="./manage-categoies.php?rid=<?php echo htmlentities($row['id']); ?>&&action=parmdel" class="text-red-500"><i class="fa fa-trash"></i></a>
+                    <a href="./manage-categories.php?resid=<?php echo htmlentities($row['id']); ?>" class="text-blue-500"><i class="fa-solid fa-arrows-rotate"></i></i></a>
+                    &nbsp;<a href="./manage-categories.php?rid=<?php echo htmlentities($row['id']); ?>&&action=parmdel" class="text-red-500"><i class="fa fa-trash"></i></a>
                 </td>
             </tr>
         <?php
