@@ -1,9 +1,8 @@
 <div class="flex items-center min-w-full justify-between bg-gray-800 p-4">
     <!-- LOGO -->
     <div class="flex justify-start items-center">
-        <a href="index.html" class="text-white text-2xl font-bold flex items-center">
+        <a href="admin.php" class="text-white text-2xl font-bold flex items-center">
             <span>NEWS<span class="text-yellow-500"> EVERYDAY</span></span>
-            <i class="mdi mdi-layers ml-2"></i>
         </a>
         <button id="toggleButton" class=" p-2 border border-transparent ml-3 rounded hover:bg-gray-800 focus:outline-none">
             <i class="fa-solid fa-bars text-white text-2xl"></i>
@@ -13,10 +12,6 @@
     </div>
 
     
-    <!-- Button mobile view to collapse sidebar menu -->
-    <!-- <div class="flex justify-start">
-        
-    </div> -->
     
 
     <!-- Right(Notification) -->
@@ -41,10 +36,4 @@
         const userMenu = document.getElementById('user-menu');
         userMenu.classList.toggle('hidden');
     });
-    // $(document).ready(function() {
-    // $('#user-menu-button').on('click', function() {
-    //     $('#user-menu').toggle();
-    // });
-    // });
-
 </script>

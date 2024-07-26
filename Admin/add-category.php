@@ -17,7 +17,7 @@ if(strlen($_SESSION['login'])==0) {
         }
     }
 
-        ?>
+?>
 
 
 <!DOCTYPE html>
@@ -25,7 +25,7 @@ if(strlen($_SESSION['login'])==0) {
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>News Portal | Dashboard</title>
+    <title>News Portal | add categories</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="https://cdn.materialdesignicons.com/5.4.55/css/materialdesignicons.min.css">
@@ -34,19 +34,23 @@ if(strlen($_SESSION['login'])==0) {
 <body class="bg-gray-100 min-w-full sm:min-w-full">
     <?php include('../includes/topheader.php'); ?>
     <div id="wrapper" class="flex flex-row min-h-screen">
-        <div id="toggleContent">
+        <div id="toggleContent" class="">
             <?php include('../includes/leftsidebar.php'); ?>
         </div>
         <div class="content p-5 flex flex-col w-full">
             <div class="container mx-auto py-6">
-                <div class="mb-6">
+            <div class="row mb-3">
+                <div class="col-xs-12">
+                <div class="mb-3">
                     <div class="text-xl font-semibold mb-2">Add Category</div>
-                    <ol class="flex space-x-1.5 text-sm text-gray-500">
-                        <li><a href="#" class="hover:text-gray-900">Admin /</a></li>
+                    <ol class="flex space-x-1.5 justify-end text-sm text-gray-500">
+                        <li><a href="./admin.php" class="hover:text-gray-900">Admin /</a></li>
                         <li><a href="#" class="hover:text-gray-900">Category /</a></li>
                         <li class="text-gray-900">Add Category</li>
                     </ol>
                 </div>
+                </div>
+            </div>
                 <div class="bg-white p-6 rounded-lg shadow-md">
                     <h4 class="text-lg font-semibold mb-4">Add Category</h4>
                     <?php if($msg){ ?>
