@@ -46,9 +46,9 @@
                         <div class="mb-4">
                             <div class="flex justify-between items-center">
                                 <h4 class="text-2xl font-bold">Dashboard</h4>
-                                <ol class="breadcrumb flex space-x-2">
-                                    <li><a href="#" class="text-gray-600">NewsPortal</a></li>
-                                    <li><a href="#" class="text-gray-600">Admin</a></li>
+                                <ol class="breadcrumb flex space-x-1.5">
+                                    <li><a href="#" class="text-gray-600">NewsPortal /</a></li>
+                                    <li><a href="#" class="text-gray-600">Admin /</a></li>
                                     <li class="text-gray-500">Dashboard</li>
                                 </ol>
                             </div>
@@ -56,7 +56,7 @@
                         <!-- end row -->
 
                         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-                            <a href="manage-categories.php" class="block bg-white p-6 rounded-lg shadow">
+                            <a href="./manage-categories.php" class="block bg-white p-6 rounded-lg shadow">
                                 <div class="flex justify-between items-center space-x-4">
                                     <!-- <i class="fa-solid fa-chart-simple text-4xl text-gray-600"></i> -->
                                     <div>
@@ -182,9 +182,6 @@
         <script src="../plugins/morris/morris.min.js"></script>
         <script src="../plugins/raphael/raphael-min.js"></script>
 
-        <!-- Dashboard init -->
-        <script src="../assets/pages/jquery.dashboard.js"></script>
-        <script src="../assets/pages/jquery.dashboard_2.js"></script>
 
         <!-- App js -->
         <script src="../assets/js/jquery.core.js"></script>

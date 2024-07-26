@@ -40,7 +40,7 @@
                         </a>
                         <ul class="list-unstyled ml-6 hidden">
                             <li><a href="add-category.php" class="block py-1.5 px-4 hover:bg-gray-700">Add Category</a></li>
-                            <li><a href="../Admin/manage-categoies.php" class="block py-1.5 px-4 hover:bg-gray-700">Manage Category</a></li>
+                            <li><a href="../Admin/manage-categories.php" class="block py-1.5 px-4 hover:bg-gray-700">Manage Category</a></li>
                         </ul>
                     </li>
 
