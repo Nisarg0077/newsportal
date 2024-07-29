@@ -1,4 +1,4 @@
-<div class="flex items-center min-w-full justify-between bg-gray-800 p-4">
+<div class="flex items-center min-w-full justify-between bg-gray-800 px-2">
     <!-- LOGO -->
     <div class="flex justify-start items-center">
         <a href="admin.php" class="text-white text-2xl font-bold flex items-center">
@@ -18,7 +18,7 @@
     <div class="flex items-center">
         <div class="relative">
             <a href="#" class="flex items-center text-white" id="user-menu-button" aria-expanded="true">
-                <img src="../assets/images/users/avatar-1.jpg" alt="user-img" class="w-8 h-8 rounded-full">
+                <img src="../assets/images/users/man-user-circle-icon.png" alt="user-img" class="w-8 h-8 rounded-full">
             </a>
 
             <!-- Dropdown -->

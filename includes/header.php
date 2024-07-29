@@ -1,4 +1,4 @@
-<nav class="navbar relative flex items-center justify-between py-4 px-6 bg-gray-900 text-white shadow-md z-50">
+<nav  class="navbar relative flex items-center justify-between py-4 px-6 bg-gray-900 text-white shadow-md z-50">
     <div class="container mx-auto flex items-center justify-between">
         <!-- Logo -->
         <a href="index.php" class="text-white text-2xl font-bold flex items-center">
