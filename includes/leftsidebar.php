@@ -24,8 +24,8 @@
                                 <i class="fas fa-chevron-right ml-auto"></i>
                             </a>
                             <ul class="list-unstyled ml-6 hidden">
-                                <li><a href="add-subadmins.php" class="block py-1.5 px-4 hover:bg-gray-700">Add Sub-admin</a></li>
-                                <li><a href="manage-subadmins.php" class="block py-1.5 px-4 hover:bg-gray-700">Manage Sub-admin</a></li>
+                                <li><a href="add-subadmins.php" style="font-size: .9rem;" class="block py-1.5 px-4 hover:bg-gray-700">Add Sub-admin</a></li>
+                                <li><a href="manage-subadmins.php" style="font-size: .9rem;" class="block py-1.5 px-4 hover:bg-gray-700">Manage Sub-admin</a></li>
                             </ul>
                         </li>
                     <?php endif; ?>
@@ -39,8 +39,8 @@
                             <i class="fas fa-chevron-right menu-arrow ml-auto"></i>
                         </a>
                         <ul class="list-unstyled ml-6 hidden">
-                            <li><a href="add-category.php" class="block py-1.5 px-4 hover:bg-gray-700">Add Category</a></li>
-                            <li><a href="../Admin/manage-categories.php" class="block py-1.5 px-4 hover:bg-gray-700">Manage Category</a></li>
+                            <li><a href="add-category.php" style="font-size: .9rem;" class="block py-1.5 px-4  hover:bg-gray-700">Add Category</a></li>
+                            <li><a href="../Admin/manage-categories.php" style="font-size: .9rem;" class="block py-1.5 px-4 hover:bg-gray-700">Manage Category</a></li>
                         </ul>
                     </li>
 
@@ -53,8 +53,8 @@
                             <i class="fas fa-chevron-right menu-arrow ml-auto"></i>
                         </a>
                         <ul class="list-unstyled ml-6 hidden">
-                            <li><a href="add-subcategory.php" class="block py-1.5 px-4 hover:bg-gray-700">Add Sub Category</a></li>
-                            <li><a href="manage-subcategories.php" class="block py-1.5 px-4 hover:bg-gray-700">Manage Sub Category</a></li>
+                            <li><a href="add-subcategory.php" style="font-size: .9rem;" class="block py-1.5 px-4 hover:bg-gray-700">Add Sub Category</a></li>
+                            <li><a href="manage-subcategories.php" style="font-size: .9rem;" class="block py-1.5 px-4 hover:bg-gray-700">Manage Sub Category</a></li>
                         </ul>
                     </li>
 
@@ -67,9 +67,9 @@
                             <i class="fas fa-chevron-right menu-arrow ml-auto"></i>
                         </a>
                         <ul class="list-unstyled ml-6 hidden">
-                            <li><a href="add-post.php" class="block py-1.5 px-4 hover:bg-gray-700">Add Posts</a></li>
-                            <li><a href="manage-posts.php" class="block py-1.5 px-4 hover:bg-gray-700">Manage Posts</a></li>
-                            <li><a href="trash-posts.php" class="block py-1.5 px-4 hover:bg-gray-700">Trash Posts</a></li>
+                            <li><a href="add-post.php" style="font-size: .9rem;" class="block py-1.5 px-4 hover:bg-gray-700">Add Posts</a></li>
+                            <li><a href="manage-posts.php" style="font-size: .9rem;" class="block py-1.5 px-4 hover:bg-gray-700">Manage Posts</a></li>
+                            <li><a href="trash-posts.php" style="font-size: .9rem;" class="block py-1.5 px-4 hover:bg-gray-700">Trash Posts</a></li>
                         </ul>
                     </li>
 
@@ -82,8 +82,8 @@
                             <i class="fas fa-chevron-right menu-arrow ml-auto"></i>
                         </a>
                         <ul class="list-unstyled ml-6 hidden">
-                            <li><a href="aboutus.php" class="block py-1.5 px-4 hover:bg-gray-700">About us</a></li>
-                            <li><a href="contactus.php" class="block py-1.5 px-4 hover:bg-gray-700">Contact us</a></li>
+                            <li><a href="aboutus.php" style="font-size: .9rem;" class="block py-1.5 px-4 hover:bg-gray-700">About us</a></li>
+                            <li><a href="contactus.php" style="font-size: .9rem;" class="block py-1.5 px-4 hover:bg-gray-700">Contact us</a></li>
                         </ul>
                     </li>
 
@@ -96,8 +96,8 @@
                             <i class="fas fa-chevron-right menu-arrow ml-auto"></i>
                         </a>
                         <ul class="list-unstyled ml-6 hidden">
-                            <li><a href="unapprove-comment.php" class="block py-1.5 px-4 hover:bg-gray-700">Waiting for Approval</a></li>
-                            <li><a href="manage-comments.php" class="block py-1.5 px-4 hover:bg-gray-700">Approved Comments</a></li>
+                            <li><a href="unapprove-comment.php" style="font-size: .9rem;" class="block py-1.5 px-4 hover:bg-gray-700">Waiting for Approval</a></li>
+                            <li><a href="manage-comments.php" style="font-size: .9rem;" class="block py-1.5 px-4 hover:bg-gray-700">Approved Comments</a></li>
                         </ul>
                     </li>
                 </ul>
