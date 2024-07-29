@@ -15,21 +15,21 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <!-- App title -->
         <title>News Portal | Dashboard</title>
-        <link rel="stylesheet" href="../plugins/morris/morris.css">
         <!-- App css -->
         <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-        <link rel="stylesheet" href="https://cdn.materialdesignicons.com/5.4.55/css/materialdesignicons.min.css">
-        <script src="../assets/js/modernizr.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.materialdesignicons.com/5.4.55/css/materialdesignicons.min.css">
+    <script src="../assets/js/modernizr.min.js"></script>
+       
     </head>
-    <body class="bg-gray-100">
+    <body class="bg-gray-100 min-w-full sm:min-w-full">
         <?php include('../includes/topheader.php');?>
         <!-- Begin page -->
         <div id="wrapper" class="flex flex-row min-h-screen">
             
 
             <!-- ========== Left Sidebar Start ========== -->
-            <div id="toggleContent">
+            <div id="toggleContent" >
 
                 <?php include('../includes/leftsidebar.php');?>
             </div>
@@ -43,7 +43,7 @@
                 <!-- Start content -->
                 <div class="content p-6">
                     <div class="container mx-auto">
-                        <div class="mb-4">
+                        <div class="mb-6">
                             <div class="flex justify-between items-center">
                                 <h4 class="text-2xl font-bold">Dashboard</h4>
                                 <ol class="breadcrumb flex space-x-1.5">
@@ -166,34 +166,19 @@
 
         <!-- jQuery  -->
         <script src="../assets/js/jquery.min.js"></script>
-        <script src="../assets/js/detect.js"></script>
-        <script src="../assets/js/fastclick.js"></script>
-        <script src="../assets/js/waves.js"></script>
-        <script src="../assets/js/jquery.blockUI.js"></script>
-        <script src="../assets/js/jquery.scrollTo.min.js"></script>
-        <script src="../assets/js/jquery.slimscroll.js"></script>
-        <script src="../plugins/switchery/switchery.min.js"></script>
+    <script src="../assets/js/jquery.core.js"></script>
+    <script src="../assets/js/jquery.app.js"></script>
 
-        <!-- Counter js  -->
-        <script src="../plugins/waypoints/jquery.waypoints.min.js"></script>
-        <script src="../plugins/counterup/jquery.counterup.min.js"></script>
-
-        <!--Morris Chart-->
-        <script src="../plugins/morris/morris.min.js"></script>
-        <script src="../plugins/raphael/raphael-min.js"></script>
-
-
-        <!-- App js -->
-        <script src="../assets/js/jquery.core.js"></script>
-        <script src="../assets/js/jquery.app.js"></script>
-        <script>
-             $(document).ready(function() {
-            $("#toggleButton").click(function() {
-                $("#toggleContent").toggle(); // Toggle visibility
-                
-            });
-        });
+        
         </script>
+        <script>
+        document.getElementById('close-sidebar').addEventListener('click', function() {
+            document.getElementById('right-sidebar').classList.add('hidden');
+        });
+        document.getElementById('toggleButton').addEventListener('click', function() {
+            document.getElementById('toggleContent').classList.toggle('hidden');
+        });
+    </script>
     </body>
 </html>
 <?php } ?>
