@@ -3,16 +3,18 @@ include('./conn.php');
 ?>
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
-
-    <title>News Portal | About us</title>
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-    <link href="css/modern-business.css" rel="stylesheet">
+    
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta name="description" content="">
+        <meta name="author" content="">
+        
+        <title>News Portal | About us</title>
+        <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+        <link rel="stylesheet" href="https://cdn.materialdesignicons.com/5.4.55/css/materialdesignicons.min.css">
+        <script src="../assets/js/modernizr.min.js"></script>
 </head>
 
 <body>
@@ -48,10 +50,51 @@ include('./conn.php');
     <!-- Footer -->
     <?php include('includes/footer.php'); ?>
 
-    <!-- jQuery and JavaScript files -->
-    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.min.js"></script>
-</body>
+    <div class="fixed inset-0 bg-gray-800 bg-opacity-50 z-50 hidden" id="right-sidebar">
+        <div class="bg-white w-64 p-4">
+            <button class="text-gray-600" id="close-sidebar">
+                <i class="mdi mdi-close-circle-outline text-2xl"></i>
+            </button>
+            <h4 class="text-xl font-bold mb-4">Settings</h4>
+            <div class="space-y-4">
+                <div class="flex justify-between items-center">
+                    <h5 class="text-gray-700">Notifications</h5>
+                    <input type="checkbox" checked class="switchery" data-color="#7fc1fc" data-size="small"/>
+                </div>
+                <div class="flex justify-between items-center">
+                    <h5 class="text-gray-700">API Access</h5>
+                    <input type="checkbox" checked class="switchery" data-color="#7fc1fc" data-size="small"/>
+                </div>
+                <div class="flex justify-between items-center">
+                    <h5 class="text-gray-700">Auto Updates</h5>
+                    <input type="checkbox" checked class="switchery" data-color="#7fc1fc" data-size="small"/>
+                </div>
+                <div class="flex justify-between items-center">
+                    <h5 class="text-gray-700">Online Status</h5>
+                    <input type="checkbox" checked class="switchery" data-color="#7fc1fc" data-size="small"/>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        document.getElementById('close-sidebar').addEventListener('click', function() {
+            document.getElementById('right-sidebar').classList.add('hidden');
+        });
+        document.getElementById('toggleButton').addEventListener('click', function() {
+            document.getElementById('toggleContent').classList.toggle('hidden');
+        });
 
+    </script>
+
+        <script>
+            var resizefunc = [];
+        </script>
+
+        <!-- jQuery  -->
+        <script src="../assets/js/jquery.min.js"></script>
+ 
+        <script src="../assets/js/jquery.app.js"></script>
+
+
+    </body>
 </html>
