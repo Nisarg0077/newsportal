@@ -45,7 +45,7 @@ if (strlen($_SESSION['login']) == 0) {
                     <div class="text-xl font-semibold mb-2">Add Sub-Category</div>
                     <ol class="flex space-x-1.5 justify-end text-sm text-gray-500">
                         <li><a href="./admin.php" class="hover:text-gray-900">Admin /</a></li>
-                        <li><a href="#" class="hover:text-gray-900">Category /</a></li>
+                        <li><a href="./manage-subcategories.php" class="hover:text-gray-900">Sub-Category /</a></li>
                         <li class="text-gray-900">Add Sub-Category</li>
                     </ol>
                 </div>
@@ -147,14 +147,7 @@ if (strlen($_SESSION['login']) == 0) {
         });
     </script>
     <script src="../assets/js/jquery.min.js"></script>
-    <script src="../assets/js/detect.js"></script>
-    <script src="../assets/js/fastclick.js"></script>
-    <script src="../assets/js/jquery.blockUI.js"></script>
-    <script src="../assets/js/waves.js"></script>
-    <script src="../assets/js/jquery.slimscroll.js"></script>
-    <script src="../assets/js/jquery.scrollTo.min.js"></script>
-    <script src="../plugins/switchery/switchery.min.js"></script>
-    <script src="../assets/js/jquery.core.js"></script>
+   
     <script src="../assets/js/jquery.app.js"></script>
 </body>
 </html>

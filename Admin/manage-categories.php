@@ -39,6 +39,7 @@ if($_REQUEST['action']=='parmdel' &&$_REQUEST['rid'])
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="https://cdn.materialdesignicons.com/5.4.55/css/materialdesignicons.min.css">
+    <script src="../assets/js/modernizr.min.js"></script>
 </head>
 
 
@@ -57,7 +58,7 @@ if($_REQUEST['action']=='parmdel' &&$_REQUEST['rid'])
                     <div class="text-xl font-semibold mb-2">Manage Category</div>
                     <ol class="flex space-x-1.5 justify-end text-sm text-gray-500">
                         <li><a href="./admin.php" class="hover:text-gray-900">Admin /</a></li>
-                        <li><a href="#" class="hover:text-gray-900">Category /</a></li>
+                        <li><a href="./manage-subcategories.php" class="hover:text-gray-900">Category /</a></li>
                         <li class="text-gray-900">Manage Category</li>
                     </ol>
                 </div>
@@ -152,7 +153,15 @@ if($_REQUEST['action']=='parmdel' &&$_REQUEST['rid'])
         <?php
         $query = mysqli_query($con, "Select id,CategoryName,Description,PostingDate,UpdationDate from tblcategory where Is_Active=0");
         $cnt = 1;
-        while ($row = mysqli_fetch_array($query)) {
+        $rowcount=mysqli_num_rows($query);
+        if($rowcount==0) {
+            ?>
+                <tr>
+                    <td colspan="7" class="text-center py-4 text-red-600">No record found</td>
+                </tr>
+            <?php 
+            } else {
+                while($row=mysqli_fetch_array($query)) {
         ?>
             <tr>
                 <th scope="row" class="border border-gray-200 px-4 py-2"><?php echo htmlentities($cnt); ?></th>
@@ -167,7 +176,7 @@ if($_REQUEST['action']=='parmdel' &&$_REQUEST['rid'])
             </tr>
         <?php
             $cnt++;
-        } ?>
+        }} ?>
     </tbody>
 </table>
 
