@@ -23,8 +23,8 @@ if (strlen($_SESSION['login']) == 0) {
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Newsportal | Add Sub Category</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Newsportal | Add Sub Category</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="https://cdn.materialdesignicons.com/5.4.55/css/materialdesignicons.min.css">
@@ -112,7 +112,7 @@ if (strlen($_SESSION['login']) == 0) {
             </div>
         </div>
         <?php include('../includes/footer.php'); ?>
-    <div class="fixed inset-0 bg-gray-800 bg-opacity-50 z-50 hidden" id="right-sidebar">
+        <div class="fixed inset-0 bg-gray-800 bg-opacity-50 z-50 hidden" id="right-sidebar">
         <div class="bg-white w-64 p-4">
             <button class="text-gray-600" id="close-sidebar">
                 <i class="mdi mdi-close-circle-outline text-2xl"></i>
@@ -145,10 +145,17 @@ if (strlen($_SESSION['login']) == 0) {
         document.getElementById('toggleButton').addEventListener('click', function() {
             document.getElementById('toggleContent').classList.toggle('hidden');
         });
+
     </script>
-    <script src="../assets/js/jquery.min.js"></script>
-   
-    <script src="../assets/js/jquery.app.js"></script>
+
+        <script>
+            var resizefunc = [];
+        </script>
+
+        <!-- jQuery  -->
+        <script src="../assets/js/jquery.min.js"></script>
+ 
+        <script src="../assets/js/jquery.app.js"></script>
 </body>
 </html>
 <?php }  ?>
