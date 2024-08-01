@@ -47,7 +47,7 @@
                             <div class="flex justify-between items-center">
                                 <h4 class="text-2xl font-bold">Dashboard</h4>
                                 <ol class="breadcrumb flex space-x-1.5">
-                                    <li><a href="#" class="text-gray-600">NewsPortal /</a></li>
+                                    <li><a href="../index.php" class="text-gray-600">NewsPortal /</a></li>
                                     <li><a href="#" class="text-gray-600">Admin /</a></li>
                                     <li class="text-gray-500">Dashboard</li>
                                 </ol>
