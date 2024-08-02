@@ -17,15 +17,15 @@ include('./conn.php');
         <script src="../assets/js/modernizr.min.js"></script>
 </head>
 
-<body>
+<body class="h-screen">
     <?php include('./includes/header.php'); ?>
-    <div class="container mx-auto p-4">
+    <div class="container mx-auto px-4 h-screen mt-0 p-0">
         <?php
         $pagetype = 'aboutus';
         $query = mysqli_query($con, "SELECT PageTitle, Description FROM tblpages WHERE PageName='$pagetype'");
         while ($row = mysqli_fetch_array($query)) {
         ?>
-            <h1 class="mt-4 mb-3 text-4xl font-bold"><?php echo htmlentities($row['PageTitle']) ?>
+            <h1 class="mt-2 mb-3 text-4xl font-bold text-center"><?php echo htmlentities($row['PageTitle']) ?>
             </h1>
 
             <nav class="text-gray-700">
