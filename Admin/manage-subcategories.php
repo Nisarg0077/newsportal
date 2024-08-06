@@ -30,7 +30,7 @@ if(strlen($_SESSION['login'])==0) {
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="https://cdn.materialdesignicons.com/5.4.55/css/materialdesignicons.min.css">
-    <!-- <script src="../assets/js/modernizr.min.js"></script> -->
+    <script src="../assets/js/modernizr.min.js"></script>
 </head>
 <body class="bg-gray-100 min-w-full sm:min-w-full">
     <?php include('../includes/topheader.php'); ?>
