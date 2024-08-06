@@ -96,11 +96,7 @@ if ($result->num_rows > 0) {
             <?php endif;?>
           </p>
 
-          <p class="mt-2"><strong>Share:</strong> 
-            <a href="http://www.facebook.com/share.php?u=<?php echo $currenturl;?>" target="_blank">Facebook</a> | 
-            <a href="https://twitter.com/share?url=<?php echo $currenturl;?>" target="_blank">Twitter</a> |
-            <a href="https://web.whatsapp.com/send?text=<?php echo $currenturl;?>" target="_blank">Whatsapp</a> | 
-            <a href="http://www.linkedin.com/shareArticle?mini=true&amp;url=<?php echo $currenturl;?>" target="_blank">Linkedin</a>  
+          <p class="mt-2">
             <b>Visits:</b> <?php print $visits; ?>
           </p>
           
