@@ -1,14 +1,12 @@
 <?php 
 session_start();
 include('./conn.php');
-//Generating CSRF Token
 if (empty($_SESSION['token'])) {
  $_SESSION['token'] = bin2hex(random_bytes(32));
 }
 
 if(isset($_POST['submit']))
 {
-  //Verifying CSRF Token
   if (!empty($_POST['csrftoken'])) {
     if (hash_equals($_SESSION['token'], $_POST['csrftoken'])) {
       $name=$_POST['name'];
@@ -59,17 +57,17 @@ if ($result->num_rows > 0) {
 </head>
 <body class="bg-gray-100 text-gray-900">
 
-  <!-- Navigation -->
+
   <?php include('./includes/header.php');?>
 
-  <!-- Page Content -->
+
   <div class="container mx-auto px-4 py-8">
 
     <div class="flex flex-wrap -mx-4">
-      <!-- Blog Entries Column -->
+
       <div class="w-full lg:w-2/3 px-4">
 
-        <!-- Blog Post -->
+  
         <?php
         $pid=intval($_GET['nid']);
         $currenturl="http://".$_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
@@ -80,11 +78,11 @@ if ($result->num_rows > 0) {
         <div class="bg-white rounded-lg shadow-md p-6 mb-8">
           <h2 class="text-3xl font-bold mb-4"><?php echo htmlentities($row['posttitle']);?></h2>
 
-          <!-- Category -->
+ 
           <a class="inline-block bg-gray-200 text-gray-800 px-3 py-1 rounded-full text-sm font-semibold mr-2 mb-2" href="category.php?catid=<?php echo htmlentities($row['cid'])?>">
             <?php echo htmlentities($row['category']);?>
           </a>
-          <!-- Subcategory -->
+
           <a class="inline-block bg-gray-200 text-gray-800 px-3 py-1 rounded-full text-sm font-semibold mr-2 mb-2">
             <?php echo htmlentities($row['subcategory']);?>
           </a>
@@ -110,13 +108,13 @@ if ($result->num_rows > 0) {
 
       </div>
 
-      <!-- Sidebar Widgets Column -->
+
       <div class="w-full lg:w-1/3 px-4">
         <?php include('./includes/sidebar.php');?>
       </div>
     </div>
 
-    <!-- Comment Section -->
+
     <div class="flex flex-wrap -mx-4 mt-8">
       <div class="w-full lg:w-2/3 px-4">
         <div class="bg-white rounded-lg shadow-md p-6 mb-8">
@@ -138,7 +136,7 @@ if ($result->num_rows > 0) {
           </form>
         </div>
 
-        <!-- Comment Display Section -->
+      
         <?php 
         $sts=1;
         $query=mysqli_query($con,"select name,comment,postingDate from tblcomments where postId='$pid' and status='$sts'");
