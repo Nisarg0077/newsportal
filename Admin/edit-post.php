@@ -5,25 +5,27 @@ error_reporting(0);
 
 if(strlen($_SESSION['login']) == 0) { 
     header('location:index.php');
-} else {
-    if(isset($_POST['update'])) {
-        $posttitle = $_POST['posttitle'];
-        $catid = $_POST['category'];
-        $subcatid = $_POST['subcategory'];
-        $postdetails = $_POST['postdescription'];
-        $lastuptdby = $_SESSION['login'];
-        $arr = explode(" ", $posttitle);
-        $url = implode("-", $arr);
-        $status = 1;
-        $postid = intval($_GET['pid']);
-        $query = mysqli_query($con, "UPDATE tblposts SET PostTitle='$posttitle', CategoryId='$catid', SubCategoryId='$subcatid', PostDetails='$postdetails', PostUrl='$url', Is_Active='$status', lastUpdatedBy='$lastuptdby' WHERE id='$postid'");
+    exit;
+} 
 
-        if($query) {
-            $msg = "Post updated successfully";
-        } else {
-            $error = "Something went wrong. Please try again.";    
-        } 
-    }
+if(isset($_POST['update'])) {
+    $posttitle = $_POST['posttitle'];
+    $catid = $_POST['category'];
+    $subcatid = $_POST['subcategory'];
+    $postdetails = addslashes($_POST['postdescription']);
+    $lastuptdby = $_SESSION['login'];
+    $arr = explode(" ", $posttitle);
+    $url = implode("-", $arr);
+    $status = 1;
+    $postid = intval($_GET['pid']);
+    $query = mysqli_query($con, "UPDATE tblposts SET PostTitle='$posttitle', CategoryId='$catid', SubCategoryId='$subcatid', PostDetails='$postdetails', PostUrl='$url', Is_Active='$status', lastUpdatedBy='$lastuptdby' WHERE id='$postid'");
+
+    if($query) {
+        $msg = "Post updated successfully";
+    } else {
+        $error = "Something went wrong. Please try again.";    
+    } 
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -38,40 +40,32 @@ if(strlen($_SESSION['login']) == 0) {
     <!-- Tailwind CSS -->
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link rel="stylesheet" href="https://cdn.materialdesignicons.com/5.4.55/css/materialdesignicons.min.css">
-    <script src="../assets/js/modernizr.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.materialdesignicons.com/5.4.55/css/materialdesignicons.min.css"> 
 
-    <script src="../assets/js/modernizr.min.js"></script>
     <script>
-        function getSubCat(val) {
-            const xhr = new XMLHttpRequest();
-            xhr.open("POST", "get_subcategory.php", true);
-            xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-            xhr.onreadystatechange = function() {
-                if (xhr.readyState === 4 && xhr.status === 200) {
-                    document.getElementById("subcategory").innerHTML = xhr.responseText;
-                }
-            };
-            xhr.send("catid=" + val);
+        async function getSubCat(val) {
+            const response = await fetch('get_subcategory.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                body: new URLSearchParams({ 'catid': val })
+            });
+            const data = await response.text();
+            document.getElementById('subcategory').innerHTML = data;
         }
     </script>
 </head>
 
-<body class="bg-gray-100 min-w-full sm:min-w-full" >
-<?php include('../includes/topheader.php');?>
+<body class="bg-gray-100">
+    <?php include('../includes/topheader.php'); ?>
 
-<!-- Begin page -->
-<div id="wrapper" class="flex flex-row min-h-screen"> 
-    <div id="toggleContent">
-        <?php include('../includes/leftsidebar.php'); ?>
-    </div>
-    <!-- Right Content Start -->
-    <div class="content-page">
-        <!-- Start content -->
-        <div class="content">
+    <div id="wrapper" class="flex">
+        <div id="toggleContent">
+            <?php include('../includes/leftsidebar.php'); ?>
+        </div>
+        <div class="content flex-1 p-6">
             <div class="container mx-auto">
-
-                <!-- Page Title -->
                 <div class="flex justify-between items-center py-4">
                     <h4 class="text-xl font-semibold">Edit Post</h4>
                     <ol class="flex space-x-2 text-gray-600">
@@ -98,21 +92,22 @@ if(strlen($_SESSION['login']) == 0) {
                 <?php
                 $postid = intval($_GET['pid']);
                 $query = mysqli_query($con, "SELECT tblposts.id as postid, tblposts.PostImage, tblposts.PostTitle as title, tblposts.PostDetails, tblcategory.CategoryName as category, tblcategory.id as catid, tblsubcategory.SubCategoryId as subcatid, tblsubcategory.Subcategory as subcategory FROM tblposts LEFT JOIN tblcategory ON tblcategory.id = tblposts.CategoryId LEFT JOIN tblsubcategory ON tblsubcategory.SubCategoryId = tblposts.SubCategoryId WHERE tblposts.id = '$postid' AND tblposts.Is_Active = 1");
-                while($row = mysqli_fetch_array($query)) {
+                $row = mysqli_fetch_array($query);
                 ?>
                 <!-- Post Edit Form -->
                 <form name="addpost" method="post" class="bg-white p-6 rounded-lg shadow-lg">
+                    <input type="hidden" name="postid" value="<?php echo htmlentities($row['postid']); ?>">
+
                     <div class="mb-4">
                         <label for="posttitle" class="block text-gray-700">Post Title</label>
-                        <input type="text" class="form-control w-full" id="posttitle" value="<?php echo htmlentities($row['title']); ?>" name="posttitle" placeholder="Enter title" required>
+                        <input type="text" class="mt-1 block w-full border border-gray-300 rounded-lg p-2" id="posttitle" name="posttitle" value="<?php echo htmlentities($row['title']); ?>" placeholder="Enter title" required>
                     </div>
 
                     <div class="mb-4">
                         <label for="category" class="block text-gray-700">Category</label>
-                        <select class="form-control w-full" name="category" id="category" onChange="getSubCat(this.value);" required>
+                        <select class="mt-1 block w-full border border-gray-300 rounded-lg p-2" name="category" id="category" onChange="getSubCat(this.value);" required>
                             <option value="<?php echo htmlentities($row['catid']); ?>"><?php echo htmlentities($row['category']); ?></option>
                             <?php
-                            // Fetching active categories
                             $ret = mysqli_query($con, "SELECT id, CategoryName FROM tblcategory WHERE Is_Active = 1");
                             while($result = mysqli_fetch_array($ret)) {
                             ?>
@@ -123,14 +118,14 @@ if(strlen($_SESSION['login']) == 0) {
 
                     <div class="mb-4">
                         <label for="subcategory" class="block text-gray-700">Sub Category</label>
-                        <select class="form-control w-full" name="subcategory" id="subcategory" required>
+                        <select class="mt-1 block w-full border border-gray-300 rounded-lg p-2" name="subcategory" id="subcategory" required>
                             <option value="<?php echo htmlentities($row['subcatid']); ?>"><?php echo htmlentities($row['subcategory']); ?></option>
                         </select>
                     </div>
 
                     <div class="mb-4">
                         <label for="postdescription" class="block text-gray-700">Post Details</label>
-                        <textarea class="summernote w-full" name="postdescription" required><?php echo htmlentities($row['PostDetails']); ?></textarea>
+                        <textarea class="mt-1 block w-full border border-gray-300 rounded-lg p-2" name="postdescription" rows="5" required><?php echo htmlentities($row['PostDetails']); ?></textarea>
                     </div>
 
                     <div class="mb-4">
@@ -140,56 +135,16 @@ if(strlen($_SESSION['login']) == 0) {
                         <a href="change-image.php?pid=<?php echo htmlentities($row['postid']); ?>" class="text-blue-600">Update Image</a>
                     </div>
 
-                    <button type="submit" name="update" class="bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700">Update</button>
+                    <div class="flex justify-end space-x-4">
+                        <button type="submit" name="update" class="bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700">Update</button>
+                        <a href="post-list.php" class="bg-red-600 text-white py-2 px-4 rounded-lg hover:bg-red-700">Discard</a>
+                    </div>
                 </form>
-                <?php } ?>
-
-            </div> <!-- container -->
-        </div> <!-- content -->
-
-        <?php include('../includes/footer.php'); ?>
-    </div>
-    <!-- End Right content -->
-</div>
-<!-- END wrapper -->
-
-<!-- JavaScript -->
-<div class="fixed inset-0 bg-gray-800 bg-opacity-50 z-50 hidden" id="right-sidebar">
-        <div class="bg-white w-64 p-4">
-            <button class="text-gray-600" id="close-sidebar">
-                <i class="mdi mdi-close-circle-outline text-2xl"></i>
-            </button>
-            <h4 class="text-xl font-bold mb-4">Settings</h4>
-            <div class="space-y-4">
-                <div class="flex justify-between items-center">
-                    <h5 class="text-gray-700">Notifications</h5>
-                    <input type="checkbox" checked class="switchery" data-color="#7fc1fc" data-size="small"/>
-                </div>
-                <div class="flex justify-between items-center">
-                    <h5 class="text-gray-700">API Access</h5>
-                    <input type="checkbox" checked class="switchery" data-color="#7fc1fc" data-size="small"/>
-                </div>
-                <div class="flex justify-between items-center">
-                    <h5 class="text-gray-700">Auto Updates</h5>
-                    <input type="checkbox" checked class="switchery" data-color="#7fc1fc" data-size="small"/>
-                </div>
-                <div class="flex justify-between items-center">
-                    <h5 class="text-gray-700">Online Status</h5>
-                    <input type="checkbox" checked class="switchery" data-color="#7fc1fc" data-size="small"/>
-                </div>
             </div>
         </div>
     </div>
-    <script>
-        document.getElementById('close-sidebar').addEventListener('click', function() {
-            document.getElementById('right-sidebar').classList.add('hidden');
-        });
-        document.getElementById('toggleButton').addEventListener('click', function() {
-            document.getElementById('toggleContent').classList.toggle('hidden');
-        });
-    </script>
-   
-    <script src="../assets/js/jquery.app.js"></script>
+
+    <?php include('../includes/footer.php'); ?>
+</div>
 </body>
 </html>
-<?php } ?>
