@@ -37,12 +37,12 @@ if(isset($_POST['update'])) {
     <link rel="shortcut icon" href="assets/images/favicon.ico">
     <title>Newsportal | Edit Post</title>
     
-    <!-- Tailwind CSS -->
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link rel="stylesheet" href="https://cdn.materialdesignicons.com/5.4.55/css/materialdesignicons.min.css"> 
+    <link rel="stylesheet" href="https://cdn.materialdesignicons.com/5.4.55/css/materialdesignicons.min.css">
+    <script src="../assets/js/modernizr.min.js"></script>
 
-    <script>
+    <!-- <script>
         async function getSubCat(val) {
             const response = await fetch('get_subcategory.php', {
                 method: 'POST',
@@ -54,7 +54,7 @@ if(isset($_POST['update'])) {
             const data = await response.text();
             document.getElementById('subcategory').innerHTML = data;
         }
-    </script>
+    </script> -->
 </head>
 
 <body class="bg-gray-100">
@@ -69,8 +69,8 @@ if(isset($_POST['update'])) {
                 <div class="flex justify-between items-center py-4">
                     <h4 class="text-xl font-semibold">Edit Post</h4>
                     <ol class="flex space-x-2 text-gray-600">
-                        <li><a href="#" class="text-blue-600">Admin</a></li>
-                        <li><a href="#" class="text-blue-600">Posts</a></li>
+                        <li><a href="#" class="text-gray-600">Admin /</a></li>
+                        <li><a href="#" class="text-gray-600">Posts /</a></li>
                         <li class="text-gray-500">Edit Post</li>
                     </ol>
                 </div>
@@ -145,6 +145,52 @@ if(isset($_POST['update'])) {
     </div>
 
     <?php include('../includes/footer.php'); ?>
+
+    <div class="fixed inset-0 bg-gray-800 bg-opacity-50 z-50 hidden" id="right-sidebar">
+        <div class="bg-white w-64 p-4">
+            <button class="text-gray-600" id="close-sidebar">
+                <i class="mdi mdi-close-circle-outline text-2xl"></i>
+            </button>
+            <h4 class="text-xl font-bold mb-4">Settings</h4>
+            <div class="space-y-4">
+                <div class="flex justify-between items-center">
+                    <h5 class="text-gray-700">Notifications</h5>
+                    <input type="checkbox" checked class="switchery" data-color="#7fc1fc" data-size="small"/>
+                </div>
+                <div class="flex justify-between items-center">
+                    <h5 class="text-gray-700">API Access</h5>
+                    <input type="checkbox" checked class="switchery" data-color="#7fc1fc" data-size="small"/>
+                </div>
+                <div class="flex justify-between items-center">
+                    <h5 class="text-gray-700">Auto Updates</h5>
+                    <input type="checkbox" checked class="switchery" data-color="#7fc1fc" data-size="small"/>
+                </div>
+                <div class="flex justify-between items-center">
+                    <h5 class="text-gray-700">Online Status</h5>
+                    <input type="checkbox" checked class="switchery" data-color="#7fc1fc" data-size="small"/>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('close-sidebar').addEventListener('click', function() {
+            document.getElementById('right-sidebar').classList.add('hidden');
+        });
+        document.getElementById('toggleButton').addEventListener('click', function() {
+            document.getElementById('toggleContent').classList.toggle('hidden');
+        });
+
+    </script>
+
+        <script>
+            var resizefunc = [];
+        </script>
+
+        <!-- jQuery  -->
+        <script src="../assets/js/jquery.min.js"></script>
+ 
+        <script src="../assets/js/jquery.app.js"></script>
 </div>
 </body>
 </html>
