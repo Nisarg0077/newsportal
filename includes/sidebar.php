@@ -52,18 +52,19 @@
   <div class="bg-white rounded-lg shadow-md p-6 mb-8">
     <h5 class="text-2xl font-bold mb-4">Recent News</h5>
     <div>
-      <ul class="list-disc pl-5">
-        <?php
-        $query = mysqli_query($con, "select tblposts.id as pid,tblposts.PostTitle as posttitle from tblposts left join tblcategory on tblcategory.id=tblposts.CategoryId left join tblsubcategory on tblsubcategory.SubCategoryId=tblposts.SubCategoryId limit 8");
-        while ($row = mysqli_fetch_array($query)) {
-        ?>
-        <li>
-          <a href="news-details.php?nid=<?php echo htmlentities($row['pid'])?>" class="text-blue-500 hover:text-blue-700"><?php echo htmlentities($row['posttitle']);?></a>
-        </li>
-        <?php } ?>
-      </ul>
+        <ul class="list-disc pl-5">
+            <?php
+            $query = mysqli_query($con, "SELECT tblposts.id AS pid, tblposts.PostTitle AS posttitle FROM tblposts LEFT JOIN tblcategory ON tblcategory.id = tblposts.CategoryId LEFT JOIN tblsubcategory ON tblsubcategory.SubCategoryId = tblposts.SubCategoryId ORDER BY tblposts.PostingDate DESC LIMIT 8");
+            while ($row = mysqli_fetch_array($query)) {
+            ?>
+            <li>
+                <a href="news-details.php?nid=<?php echo htmlentities($row['pid'])?>" class="text-blue-500 hover:text-blue-700"><?php echo htmlentities($row['posttitle']);?></a>
+            </li>
+            <?php } ?>
+        </ul>
     </div>
-  </div>
+</div>
+
 
   <!-- Popular News Widget -->
   <div class="bg-white rounded-lg shadow-md p-6 mb-8">
@@ -81,5 +82,4 @@
       </ul>
     </div>
   </div>
-
 </div>
