@@ -12,14 +12,13 @@ if(strlen($_SESSION['login'])==0) {
         $password = md5($_POST['pwd']);
         $usertype = '0';
         $query = mysqli_query($con, "INSERT INTO tbladmin(AdminUserName,AdminEmailId,AdminPassword,userType) VALUES('$username','$email','$password','$usertype')");
-        if($query) {
-            echo "<script>alert('Sub-admin details added successfully.');</script>";
-            echo "<script type='text/javascript'> document.location = 'add-subadmins.php'; </script>";
+        if ($query) {
+            $msg = "Sub-Category created ";
         } else {
-            echo "<script>alert('Something went wrong. Please try again.');</script>";
+            $error = "Something went wrong . Please try again.";
         }
     }
-}
+
 ?>
 
 <!DOCTYPE html>
@@ -59,6 +58,18 @@ if(strlen($_SESSION['login'])==0) {
                     </ol>
                 </nav>
             </div>
+            <div class="mb-6">
+                    <?php if($msg){ ?>
+                        <div class="mb-4 p-3 rounded bg-green-200 text-green-800 border border-green-300">
+                            <strong>Well done!</strong> <?php echo htmlentities($msg); ?>
+                        </div>
+                    <?php } ?>
+                    <?php if($error){ ?>
+                        <div class="mb-4 p-3 rounded bg-red-200 text-red-800 border border-red-300">
+                            <strong>Oh snap!</strong> <?php echo htmlentities($error); ?>
+                        </div>
+                    <?php } ?>
+                </div>
 
             <div class="w-full mx-auto p-6 bg-white rounded-lg shadow-md">
     <h4 class="text-xl font-semibold mb-4">Add Subadmin</h4>
@@ -145,4 +156,4 @@ if(strlen($_SESSION['login'])==0) {
 
 </body>
 </html>
-<?{php } ?>
+<?php } ?>

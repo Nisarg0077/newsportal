@@ -12,6 +12,11 @@ if(strlen($_SESSION['login'])==0) {
         $query = mysqli_query($con, "DELETE FROM tbladmin WHERE id='$id' AND userType=0");
         echo "<script>alert('Sub-admin details deleted.');</script>";
         echo "<script type='text/javascript'> document.location = 'manage-subadmins.php'; </script>";
+        if ($query) {
+            $msg = "Sub-Category created ";
+        } else {
+            $error = "Something went wrong . Please try again.";
+        }
     }
 
 ?>
