@@ -52,18 +52,7 @@ if(isset($_POST['submit'])) {
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="https://cdn.materialdesignicons.com/5.4.55/css/materialdesignicons.min.css">
     <script src="../assets/js/modernizr.min.js"></script>
-    <!-- <script>
-        function getSubCat(val) {
-            $.ajax({
-                type: "POST",
-                url: "get_subcategory.php",
-                data: 'catid=' + val,
-                success: function(data) {
-                    $("#subcategory").html(data);
-                }
-            });
-        }
-    </script> -->
+     
 </head>
 <body class="bg-gray-100">
     <?php include('../includes/topheader.php'); ?>
