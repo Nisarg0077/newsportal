@@ -1,6 +1,7 @@
-<?php 
+<?php
 session_start();
-include('../conn.php');
+include('../conn.php'); // Ensure this uses mysqli_* for modern compatibility
+
 error_reporting(0);
 
 if(strlen($_SESSION['login']) == 0) { 
@@ -9,22 +10,27 @@ if(strlen($_SESSION['login']) == 0) {
 } 
 
 if(isset($_POST['update'])) {
-    $posttitle = $_POST['posttitle'];
-    $catid = $_POST['category'];
-    $subcatid = $_POST['subcategory'];
-    $postdetails = addslashes($_POST['postdescription']);
-    $lastuptdby = $_SESSION['login'];
+    // Use mysqli_real_escape_string to escape special characters in input data
+    $posttitle = mysqli_real_escape_string($con, $_POST['posttitle']);
+    $catid = intval($_POST['category']);
+    $subcatid = intval($_POST['subcategory']);
+    $postdetails = mysqli_real_escape_string($con, $_POST['postdescription']); // Handles HTML content
+    $lastuptdby = mysqli_real_escape_string($con, $_SESSION['login']);
     $arr = explode(" ", $posttitle);
     $url = implode("-", $arr);
     $status = 1;
     $postid = intval($_GET['pid']);
-    $query = mysqli_query($con, "UPDATE tblposts SET PostTitle='$posttitle', CategoryId='$catid', SubCategoryId='$subcatid', PostDetails='$postdetails', PostUrl='$url', Is_Active='$status', lastUpdatedBy='$lastuptdby' WHERE id='$postid'");
 
-    if($query) {
+    // Prepare the SQL statement
+    $query = "UPDATE tblposts SET PostTitle='$posttitle', CategoryId='$catid', SubCategoryId='$subcatid', PostDetails='$postdetails', PostUrl='$url', Is_Active='$status', lastUpdatedBy='$lastuptdby' WHERE id='$postid'";
+
+    $result = mysqli_query($con, $query);
+
+    if($result) {
         $msg = "Post updated successfully";
     } else {
         $error = "Something went wrong. Please try again.";    
-    } 
+    }
 }
 ?>
 <!DOCTYPE html>
@@ -36,27 +42,11 @@ if(isset($_POST['update'])) {
     <meta name="author" content="Coderthemes">
     <link rel="shortcut icon" href="assets/images/favicon.ico">
     <title>Newsportal | Edit Post</title>
-    
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="https://cdn.materialdesignicons.com/5.4.55/css/materialdesignicons.min.css">
     <script src="../assets/js/modernizr.min.js"></script>
-
-    <!-- <script>
-        async function getSubCat(val) {
-            const response = await fetch('get_subcategory.php', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded'
-                },
-                body: new URLSearchParams({ 'catid': val })
-            });
-            const data = await response.text();
-            document.getElementById('subcategory').innerHTML = data;
-        }
-    </script> -->
 </head>
-
 <body class="bg-gray-100">
     <?php include('../includes/topheader.php'); ?>
 
@@ -77,12 +67,12 @@ if(isset($_POST['update'])) {
 
                 <!-- Success/Error Messages -->
                 <div class="mb-4">
-                    <?php if($msg): ?>
+                    <?php if(isset($msg)): ?>
                     <div class="bg-green-100 text-green-800 p-4 rounded-lg">
                         <strong>Well done!</strong> <?php echo htmlentities($msg); ?>
                     </div>
                     <?php endif; ?>
-                    <?php if($error): ?>
+                    <?php if(isset($error)): ?>
                     <div class="bg-red-100 text-red-800 p-4 rounded-lg">
                         <strong>Oh snap!</strong> <?php echo htmlentities($error); ?>
                     </div>
@@ -91,8 +81,9 @@ if(isset($_POST['update'])) {
 
                 <?php
                 $postid = intval($_GET['pid']);
-                $query = mysqli_query($con, "SELECT tblposts.id as postid, tblposts.PostImage, tblposts.PostTitle as title, tblposts.PostDetails, tblcategory.CategoryName as category, tblcategory.id as catid, tblsubcategory.SubCategoryId as subcatid, tblsubcategory.Subcategory as subcategory FROM tblposts LEFT JOIN tblcategory ON tblcategory.id = tblposts.CategoryId LEFT JOIN tblsubcategory ON tblsubcategory.SubCategoryId = tblposts.SubCategoryId WHERE tblposts.id = '$postid' AND tblposts.Is_Active = 1");
-                $row = mysqli_fetch_array($query);
+                $query = "SELECT tblposts.id as postid, tblposts.PostImage, tblposts.PostTitle as title, tblposts.PostDetails, tblcategory.CategoryName as category, tblcategory.id as catid, tblsubcategory.SubCategoryId as subcatid, tblsubcategory.Subcategory as subcategory FROM tblposts LEFT JOIN tblcategory ON tblcategory.id = tblposts.CategoryId LEFT JOIN tblsubcategory ON tblsubcategory.SubCategoryId = tblposts.SubCategoryId WHERE tblposts.id = '$postid' AND tblposts.Is_Active = 1";
+                $result = mysqli_query($con, $query);
+                $row = mysqli_fetch_array($result);
                 ?>
                 <!-- Post Edit Form -->
                 <form name="addpost" method="post" class="bg-white p-6 rounded-lg shadow-lg">
@@ -105,7 +96,7 @@ if(isset($_POST['update'])) {
 
                     <div class="mb-4">
                         <label for="category" class="block text-gray-700">Category</label>
-                        <select class="mt-1 block w-full border border-gray-300 rounded-lg p-2" name="category" id="category" onChange="getSubCat(this.value);" required>
+                        <select class="mt-1 block w-full border border-gray-300 rounded-lg p-2" name="category" id="category" required>
                             <option value="<?php echo htmlentities($row['catid']); ?>"><?php echo htmlentities($row['category']); ?></option>
                             <?php
                             $ret = mysqli_query($con, "SELECT id, CategoryName FROM tblcategory WHERE Is_Active = 1");
