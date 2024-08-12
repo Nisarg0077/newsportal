@@ -58,7 +58,7 @@ if(strlen($_SESSION['login']) == 0) {
                                     <div class="text-xl font-semibold mb-2">Contact us Page</div>
                                     <ol class="flex space-x-1.5 justify-end text-sm text-gray-500">
                                         <li>
-                                            <a href="./admin.php" class="hover:text-gray-900">Pages</a>
+                                            <a href="./admin.php" class="hover:text-gray-900">Pages /</a>
                                         </li>
                                         <li class="hover:text-gray-900">
                                             Contact us
@@ -127,10 +127,57 @@ if(strlen($_SESSION['login']) == 0) {
             
         </div>
         <?php include('../includes/footer.php'); ?>
-        <!-- END wrapper -->
+        <div class="fixed inset-0 bg-gray-800 bg-opacity-50 z-50 hidden" id="right-sidebar">
+        <div class="bg-white w-64 p-4">
+            <button class="text-gray-600" id="close-sidebar">
+                <i class="mdi mdi-close-circle-outline text-2xl"></i>
+            </button>
+            <h4 class="text-xl font-bold mb-4">Settings</h4>
+            <div class="space-y-4">
+                <div class="flex justify-between items-center">
+                    <h5 class="text-gray-700">Notifications</h5>
+                    <input type="checkbox" checked class="switchery" data-color="#7fc1fc" data-size="small"/>
+                </div>
+                <div class="flex justify-between items-center">
+                    <h5 class="text-gray-700">API Access</h5>
+                    <input type="checkbox" checked class="switchery" data-color="#7fc1fc" data-size="small"/>
+                </div>
+                <div class="flex justify-between items-center">
+                    <h5 class="text-gray-700">Auto Updates</h5>
+                    <input type="checkbox" checked class="switchery" data-color="#7fc1fc" data-size="small"/>
+                </div>
+                <div class="flex justify-between items-center">
+                    <h5 class="text-gray-700">Online Status</h5>
+                    <input type="checkbox" checked class="switchery" data-color="#7fc1fc" data-size="small"/>
+                </div>
+            </div>
+        </div>
+    </div>
 
-        <!-- jQuery and other scripts -->
-        <script src="assets/js/jquery.min.js"></script>
+    <script>
+    document.getElementById('user-menu-button').addEventListener('click', function() {
+        const userMenu = document.getElementById('user-menu');
+        userMenu.classList.toggle('hidden');
+    });
+</script>
+<script>
+        document.getElementById('close-sidebar').addEventListener('click', function() {
+            document.getElementById('right-sidebar').classList.add('hidden');
+        });
+        document.getElementById('toggleButton').addEventListener('click', function() {
+            document.getElementById('toggleContent').classList.toggle('hidden');
+        });
+
+    </script>
+
+        <script>
+            var resizefunc = [];
+        </script>
+
+        <!-- jQuery  -->
+        <script src="../assets/js/jquery.min.js"></script>
+ 
+        <script src="../assets/js/jquery.app.js"></script>
         <script src="../plugins/summernote/summernote.min.js"></script>
         <script>
             jQuery(document).ready(function(){
