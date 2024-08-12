@@ -17,7 +17,7 @@ include('./conn.php');
         <script src="../assets/js/modernizr.min.js"></script>
 </head>
 
-<body class="h-screen">
+<body class="bg-gray-100">
     <?php include('./includes/header.php'); ?>
     <div class="container mx-auto px-4 h-screen mt-0 p-0">
         <?php
@@ -28,17 +28,17 @@ include('./conn.php');
             <h1 class="mt-2 mb-3 text-4xl font-bold text-center"><?php echo htmlentities($row['PageTitle']) ?>
             </h1>
 
-            <nav class="text-gray-700">
-                <ol class="list-reset flex">
+            <nav class="bg-gray-200 px-4 py-2 rounded mb-6">
+                <ol class="list-reset flex text-gray-700">
                     <li><a href="index.php" class="text-blue-600 hover:text-blue-800">Home</a></li>
                     <li class="mx-2">/</li>
-                    <li class="text-gray-500">About</li>
+                    <li class="font-bold">About</li>
                 </ol>
             </nav>
 
             <!-- Intro Content -->
-            <div class="row mt-4">
-                <div class="col-lg-12 ">
+            <div class="bg-white p-6 rounded shadow">
+                <div class="text-gray-700">
                     <?php echo ($row['Description']); ?>
                 </div>
             </div>
