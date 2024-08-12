@@ -54,7 +54,7 @@
     <div>
         <ul class="list-disc pl-5">
             <?php
-            $query = mysqli_query($con, "SELECT tblposts.id AS pid, tblposts.PostTitle AS posttitle FROM tblposts LEFT JOIN tblcategory ON tblcategory.id = tblposts.CategoryId LEFT JOIN tblsubcategory ON tblsubcategory.SubCategoryId = tblposts.SubCategoryId ORDER BY tblposts.PostingDate DESC LIMIT 5");
+            $query = mysqli_query($con, "SELECT  tblposts.id AS pid, tblposts.PostTitle AS posttitle FROM tblposts LEFT JOIN tblcategory ON tblcategory.id = tblposts.CategoryId LEFT JOIN tblsubcategory ON tblsubcategory.SubCategoryId = tblposts.SubCategoryId WHERE tblposts.Is_Active = 1 ORDER BY tblposts.PostingDate DESC LIMIT 5");
             while ($row = mysqli_fetch_array($query)) {
             ?>
             <li>
@@ -73,7 +73,7 @@
     <div>
       <ul class="list-disc pl-5">
         <?php
-        $query1 = mysqli_query($con, "select tblposts.id as pid,tblposts.PostTitle as posttitle from tblposts left join tblcategory on tblcategory.id=tblposts.CategoryId left join tblsubcategory on tblsubcategory.SubCategoryId=tblposts.SubCategoryId order by viewCounter desc limit 5");
+        $query1 = mysqli_query($con, "select tblposts.id as pid,tblposts.PostTitle as posttitle from tblposts left join tblcategory on tblcategory.id=tblposts.CategoryId left join tblsubcategory on tblsubcategory.SubCategoryId=tblposts.SubCategoryId WHERE tblposts.Is_Active = 1 order by viewCounter desc limit 5");
         while ($result = mysqli_fetch_array($query1)) {
         ?>
         <li>
