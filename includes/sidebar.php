@@ -54,7 +54,7 @@
     <div>
         <ul class="list-disc pl-5">
             <?php
-            $query = mysqli_query($con, "SELECT tblposts.id AS pid, tblposts.PostTitle AS posttitle FROM tblposts LEFT JOIN tblcategory ON tblcategory.id = tblposts.CategoryId LEFT JOIN tblsubcategory ON tblsubcategory.SubCategoryId = tblposts.SubCategoryId ORDER BY tblposts.PostingDate DESC LIMIT 8");
+            $query = mysqli_query($con, "SELECT tblposts.id AS pid, tblposts.PostTitle AS posttitle FROM tblposts LEFT JOIN tblcategory ON tblcategory.id = tblposts.CategoryId LEFT JOIN tblsubcategory ON tblsubcategory.SubCategoryId = tblposts.SubCategoryId ORDER BY tblposts.PostingDate DESC LIMIT 5");
             while ($row = mysqli_fetch_array($query)) {
             ?>
             <li>
@@ -64,6 +64,7 @@
         </ul>
     </div>
 </div>
+
 
 
   <!-- Popular News Widget -->
