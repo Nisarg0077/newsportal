@@ -62,14 +62,15 @@ if(isset($_POST['submit'])) {
     </div>
 
     <div class="content p-5 flex flex-col w-full">
-        <div class="container mx-auto py-6">
+        <div class="container mx-auto py-0">
             <div class="container mx-auto">
-                <div class="flex items-center justify-between mb-4">
-                    <h1 class="text-2xl font-semibold">Add Post</h1>
-                    <nav class="text-sm">
-                        <a href="#" class="text-blue-600 hover:underline">Post</a> &gt; 
-                        <a href="#" class="text-blue-600 hover:underline">Add Post</a>
-                    </nav>
+            <div class="mb-6">
+                    <div class="text-xl font-semibold ">Add Post</div>
+                    <ol class="flex justify-end space-x-1.5 text-sm text-gray-500">
+                        <li><a href="./admin.php" class="hover:text-gray-900">Admin /</a></li>
+                        <li><a href="#" class="hover:text-gray-900">Posts /</a></li>
+                        <li class="text-gray-900">Add Post</li>
+                    </ol>
                 </div>
 
                 <!-- Success Message -->
@@ -90,12 +91,12 @@ if(isset($_POST['submit'])) {
                     <form name="addpost" method="post" enctype="multipart/form-data">
                         <div class="mb-4">
                             <label class="block text-gray-700 font-medium mb-2" for="posttitle">Post Title</label>
-                            <input type="text" class="form-input mt-1 block w-full border border-gray-300 rounded-md shadow-sm" id="posttitle" name="posttitle" placeholder="Enter title" required>
+                            <input type="text" class="w-full p-2 border border-gray-300 rounded-lg shadow-sm focus:ring focus:ring-blue-200 focus:border-blue-500" id="posttitle" name="posttitle" placeholder="Enter title" required>
                         </div>
 
                         <div class="mb-4">
                             <label class="block text-gray-700 font-medium mb-2" for="category">Category</label>
-                            <select class="form-select mt-1 block w-full border border-gray-300 rounded-md shadow-sm" name="category" id="category" onChange="getSubCat(this.value);" required>
+                            <select class="form-select mt-1 p-1 block w-full border border-gray-300 rounded-md shadow-sm" name="category" id="category" onChange="getSubCat(this.value);" required>
                                 <option value="">Select Category</option>
                                 <?php
                                 $ret = mysqli_query($con, "SELECT id, CategoryName FROM tblcategory WHERE Is_Active=1");
@@ -108,7 +109,7 @@ if(isset($_POST['submit'])) {
 
                         <div class="mb-4">
                             <label class="block text-gray-700 font-medium mb-2" for="subcategory">Sub Category</label>
-                            <select class="form-select mt-1 block w-full border border-gray-300 rounded-md shadow-sm" name="subcategory" id="subcategory" required>
+                            <select class="form-select mt-1 p-1 block w-full border border-gray-300 rounded-md shadow-sm" name="subcategory" id="subcategory" required>
                             <option value="">Select Sub Category</option>
                                 <?php
                                 // Fetching active subcategories based on category selection
