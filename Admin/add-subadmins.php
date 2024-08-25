@@ -48,12 +48,12 @@ if(strlen($_SESSION['login'])==0) {
 
         <div class="flex-1 p-6 w-10/12 mx-auto">
             <!-- Page Title -->
-            <div class="mb-4">
+            <div class="mb-4 flex justify-between items-center py-4">
                 <h1 class="text-2xl font-semibold text-gray-800">Add Subadmin</h1>
-                <nav class="mt-2">
+                <nav class="mt-2 ">
                     <ol class="flex space-x-2 text-gray-600">
-                        <li><a href="#" class="hover:text-blue-500">Admin</a></li>
-                        <li><a href="#" class="hover:text-blue-500">Subadmin</a></li>
+                        <li><a href="#" class="hover:text-blue-500">Admin /</a></li>
+                        <li><a href="#" class="hover:text-blue-500">Subadmin /</a></li>
                         <li>Add Subadmin</li>
                     </ol>
                 </nav>

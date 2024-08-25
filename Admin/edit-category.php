@@ -33,9 +33,9 @@ $error="Something went wrong . Please try again.";
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>News Portal | Dashboard</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link rel="stylesheet" href="https://cdn.materialdesignicons.com/5.4.55/css/materialdesignicons.min.css">
-    <script src="../assets/js/modernizr.min.js"></script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+        <link rel="stylesheet" href="https://cdn.materialdesignicons.com/5.4.55/css/materialdesignicons.min.css">
+        <script src="../assets/js/modernizr.min.js"></script>
 </head>
 <body class="bg-gray-100 min-w-full sm:min-w-full">
     <?php include('../includes/topheader.php'); ?>
@@ -121,16 +121,31 @@ while($row=mysqli_fetch_array($query))
             </div>
         </div>
     </div>
+
     <script>
+    document.getElementById('user-menu-button').addEventListener('click', function() {
+        const userMenu = document.getElementById('user-menu');
+        userMenu.classList.toggle('hidden');
+    });
+</script>
+<script>
         document.getElementById('close-sidebar').addEventListener('click', function() {
             document.getElementById('right-sidebar').classList.add('hidden');
         });
         document.getElementById('toggleButton').addEventListener('click', function() {
             document.getElementById('toggleContent').classList.toggle('hidden');
         });
+
     </script>
-   
-    <script src="../assets/js/jquery.app.js"></script>
+
+        <script>
+            var resizefunc = [];
+        </script>
+
+        <!-- jQuery  -->
+        <script src="../assets/js/jquery.min.js"></script>
+ 
+        <script src="../assets/js/jquery.app.js"></script>
 </body>
 </html>
 <?php } ?>
