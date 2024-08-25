@@ -8,7 +8,7 @@ if(strlen($_SESSION['login'])==0) {
     if($_REQUEST['action']=='del' && $_REQUEST['scid']) {
         $id=intval($_REQUEST['scid']);
         $query=mysqli_query($con,"update tblsubcategory set Is_Active='0' where SubCategoryId='$id'");
-        $msg="Category deleted ";
+        $delmsg="Category deleted ";
     }
     if($_REQUEST['resid']) {
         $id=intval($_REQUEST['resid']);

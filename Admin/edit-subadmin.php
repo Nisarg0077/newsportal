@@ -32,25 +32,25 @@ if(strlen($_SESSION['login'])==0) {
     <script src="../assets/js/modernizr.min.js"></script>
 </head>
 <body class="bg-gray-100">
-
-    <?php include('../includes/topheader.php'); ?>
+<?php include('../includes/topheader.php'); ?>
     <!-- Page Wrapper -->
-    <div id="wrapper" class="flex flex-row min-h-screen">
-
+    <div id="wrapper" class="flex min-h-screen">
     <div id="toggleContent">
             <?php include('../includes/leftsidebar.php'); ?>
-        </div>
+        </div>      
 
-        <div class="flex-1 p-6">
+        <div class=" p-6 w-10/12 mx-auto">
             <!-- Page Title -->
-            
-                <div class="mb-6">
-                    <div class="text-xl font-semibold mb-2">Manage Sub-admins</div>
-                    <ol class="flex space-x-1.5 justify-end text-sm text-gray-500">
-                        <li><a href="./admin.php" class="hover:text-gray-900">Admin /</a></li>
-                        <li><a href="" class="hover:text-gray-900">Sub-admins /</a></li>
-                        <li class="text-gray-900">Manage Sub-admins</li>
-                    </ol>
+            <!-- <div class="mb-4 flex-col justify-between items-center py-4"> -->
+                <div class="mb-4 flex justify-between items-center py-4">
+                    <h1 class="text-2xl font-semibold text-gray-800">Manage Sub-admins</h1>
+                    <nav class="mt-2 ">
+                        <ol class="flex space-x-2 text-gray-600">
+                            <li><a href="#" class="hover:text-blue-500">Admin /</a></li>
+                            <li><a href="#" class="hover:text-blue-500">Subadmin /</a></li>
+                            <li>Manage Sub-admins</li>
+                        </ol>
+                    </nav>
                 </div>
 
                         <div class="row mb-4">
@@ -114,7 +114,7 @@ if(strlen($_SESSION['login'])==0) {
         </div>
         </div>
         <!-- Content End -->
-
+        </div>
         <!-- Footer -->
         <?php include('../includes/footer.php'); ?>
         <div class="fixed inset-0 bg-gray-800 bg-opacity-50 z-50 hidden" id="right-sidebar">

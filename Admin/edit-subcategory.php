@@ -124,36 +124,26 @@ while($row=mysqli_fetch_array($query))
 	                                            <div class="flex items-center">
 	                                                <label class="w-1/5 text-gray-700">Category</label>
 	                                                <div class="w-4/5">
-	                                                  <select class="w-full p-2 border border-gray-300 rounded" name="category" required>
+	                                                  <select class="w-full p-2 border border-gray-300 rounded mt-4" name="category" required>
                                                    <option value="<?php echo htmlentities($row['catid']);?>"><?php echo htmlentities($row['catname']);?></option>
-<?php
-// Feching active categories
-$ret=mysqli_query($con,"select id,CategoryName from  tblcategory where Is_Active=1");
-while($result=mysqli_fetch_array($ret))
-{    
-?>
-<option value="<?php echo htmlentities($result['id']);?>"><?php echo htmlentities($result['CategoryName']);?></option>
-<?php } ?>
+                                                        <?php
+                                                        // Feching active categories
+                                                        $ret=mysqli_query($con,"select id,CategoryName from  tblcategory where Is_Active=1");
+                                                        while($result=mysqli_fetch_array($ret))
+                                                        {    
+                                                        ?>
+                                                        <option value="<?php echo htmlentities($result['id']);?>"><?php echo htmlentities($result['CategoryName']);?></option>
+                                                        <?php } ?>
 
                                                         </select> 
 	                                                </div>
 	                                            </div>
-	                                     
-
-
-
                                                 <div class="flex items-center">
                                                     <label class="w-1/5 text-gray-700">Sub-Category</label>
                                                     <div class="w-4/5">
                                                         <input type="text" class="w-full p-2 border border-gray-300 rounded" value="<?php echo htmlentities($row['subcatname']);?>" name="subcategory" required>
                                                     </div>
                                                 </div>
-                                         
-
-
-
-
-
 	                                            <div class="flex items-center">
                                                     <label class="w-1/5 text-gray-700">Sub-Category Description</label>
                                                     <div class="w-4/5">
@@ -167,7 +157,7 @@ while($result=mysqli_fetch_array($ret))
                                                     <label class="block text-gray-700 text-sm font-bold mb-2">&nbsp;</label>
                                                     <div class="">
                                                   
-                                                <button type="submit" class="bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700" name="submitsubcat">
+                                                <button type="submit" class="bg-blue-600 text-white py-2 px-4 rounded-lg shadow-md hover:bg-blue-700 focus:ring focus:ring-blue-200 focus:ring-opacity-50" name="submitsubcat">
                                                     Submit
                                                 </button>
                                                     </div>

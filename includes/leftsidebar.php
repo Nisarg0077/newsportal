@@ -1,7 +1,5 @@
-
-    
-    <!-- Sidebar -->
-    <div   class="left side-menu bg-gray-800 text-white h-full z-20  w-64 md:block">
+<!-- Sidebar -->
+<div   class="left side-menu bg-gray-800 text-white h-full z-20  w-64 md:block">
         <div class="sidebar-inner slimscrollleft">
             <div id="sidebar-menu">
                 <ul>
