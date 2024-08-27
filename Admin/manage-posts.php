@@ -40,7 +40,7 @@ if($_GET['action']=='del') {
 
     <?php include('../includes/topheader.php'); ?>
     <!-- Begin page -->
-    <div id="wrapper" class="flex flex-row min-h-screen">
+    <div id="wrapper" class="flex flex-row min-h-screen mb-0">
         
         <!-- Top Bar Start -->
 
@@ -50,7 +50,7 @@ if($_GET['action']=='del') {
         </div>
 
         <!-- Right Content Start -->
-        <div class="flex-1 p-6 w-10/12 mx-auto">
+        <div class="flex-1 p-6 w-full mx-auto">
             <div class="content">
                 <!-- Breadcrumb -->
                 <div class="mb-6">
@@ -93,12 +93,13 @@ if($_GET['action']=='del') {
                                 <th class="border border-gray-200 px-4 py-2">Title</th>
                                 <th class="border border-gray-200 px-4 py-2">Category</th>
                                 <th class="border border-gray-200 px-4 py-2">Subcategory</th>
+                                <th class="border border-gray-200 px-4 py-2">Posting Date</th>
                                 <th class="border border-gray-200 px-4 py-2">Action</th>
                             </tr>
                         </thead>
                         <tbody>
                             <?php
-                            $query = mysqli_query($con, "SELECT tblposts.id AS postid, tblposts.PostTitle AS title, tblcategory.CategoryName AS category, tblsubcategory.Subcategory AS subcategory FROM tblposts LEFT JOIN tblcategory ON tblcategory.id = tblposts.CategoryId LEFT JOIN tblsubcategory ON tblsubcategory.SubCategoryId = tblposts.SubCategoryId WHERE tblposts.Is_Active = 1");
+                            $query = mysqli_query($con, "SELECT tblposts.id AS postid, tblposts.PostTitle AS title, tblposts.PostingDate AS PostingDate, tblcategory.CategoryName AS category, tblsubcategory.Subcategory AS subcategory FROM tblposts LEFT JOIN tblcategory ON tblcategory.id = tblposts.CategoryId LEFT JOIN tblsubcategory ON tblsubcategory.SubCategoryId = tblposts.SubCategoryId WHERE tblposts.Is_Active = 1");
                             $rowcount = mysqli_num_rows($query);
                             if($rowcount == 0) {
                             ?>
@@ -113,6 +114,7 @@ if($_GET['action']=='del') {
                                 <td class="border border-gray-200 px-4 py-2"><?php echo htmlentities($row['title']); ?></td>
                                 <td class="border border-gray-200 px-4 py-2"><?php echo htmlentities($row['category']); ?></td>
                                 <td class="border border-gray-200 px-4 py-2"><?php echo htmlentities($row['subcategory']); ?></td>
+                                <td class="border border-gray-200 text-sm px-4 py-2"><?php echo htmlentities(strval($row['PostingDate'])) ?></td>
                                 <td class="border border-gray-200 px-4 py-2">
                                     <a href="edit-post.php?pid=<?php echo htmlentities($row['postid']); ?>" class="text-blue-500 hover:text-blue-700"><i class="fa fa-pencil"></i></a>
                                     <a href="manage-posts.php?pid=<?php echo htmlentities($row['postid']); ?>&&action=del" onclick="return confirm('Do you really want to delete?')" class="text-red-500 hover:text-red-700 ml-2"><i class="fa fa-trash"></i></a>
@@ -122,10 +124,10 @@ if($_GET['action']=='del') {
                         </tbody>
                     </table>
                 </div>
-
+                
             </div> <!-- content -->
         </div> <!-- Right Content -->
-
+        
         <!-- Footer -->
         
     </div> <!-- wrapper -->
