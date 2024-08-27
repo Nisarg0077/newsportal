@@ -3,8 +3,6 @@
         <div class="sidebar-inner slimscrollleft">
             <div id="sidebar-menu">
                 <ul>
-                    <li class="menu-title text-lg font-semibold p-4">Navigation</li>
-
                     <li class="has_sub">
                         <a href="../Admin/admin.php" class="block py-1.5 px-4 hover:bg-gray-700 flex items-center">
                             <i class="fa-solid fa-gauge mr-3"></i>

@@ -47,8 +47,8 @@ if(strlen($_SESSION['login'])==0) {
                 <div class="mb-6">
                     <div class="text-xl font-semibold mb-2">Trashed Posts</div>
                     <ol class="flex space-x-1.5 justify-end text-sm text-gray-500">
-                        <li><a href="#" class="hover:text-gray-900">Admin</a></li>
-                        <li><a href="#" class="hover:text-gray-900">Posts</a></li>
+                        <li><a href="#" class="hover:text-gray-900">Admin /</a></li>
+                        <li><a href="#" class="hover:text-gray-900">Posts /</a></li>
                         <li class="text-gray-900">Trashed Posts</li>
                     </ol>
                 </div>
@@ -61,7 +61,7 @@ if(strlen($_SESSION['login'])==0) {
                 </div>
                 <div class="bg-white shadow-md rounded-lg overflow-hidden">
                     <table class="min-w-full bg-white border border-gray-200">
-                        <thead class="bg-blue-500 text-white">
+                        <thead class="bg-red-500 text-white">
                             <tr>
                                 <th class="border border-gray-200 px-4 py-2">Title</th>
                                 <th class="border border-gray-200 px-4 py-2">Category</th>
