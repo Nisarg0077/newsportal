@@ -27,7 +27,7 @@
   <div class="w-full origin-top-right absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none hidden" id="categories-menu" role="menu" aria-orientation="vertical" aria-labelledby="categories-menu-button">
     <div class="py-1" role="none">
       <?php 
-      $query = mysqli_query($con, "select id, CategoryName from tblcategory");
+      $query = mysqli_query($con, "select id, CategoryName from tblcategory where Is_Active=1");
       while ($row = mysqli_fetch_array($query)) {
       ?>
       <a href="category.php?catid=<?php echo htmlentities($row['id'])?>" class="text-gray-700 block px-4 py-2 text-sm hover:bg-gray-100" role="menuitem"><?php echo htmlentities($row['CategoryName']);?></a>

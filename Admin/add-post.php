@@ -1,44 +1,49 @@
 <?php 
 session_start();
 include('../conn.php');
-error_reporting(0);
-
+// ini_set('display_errors', 1);
+// ini_set('display_startup_errors', 1);
+// error_reporting(E_ALL);
+$msg = "";
+$error = "";
 if(strlen($_SESSION['login']) == 0) { 
     header('location:index.php');
     exit;
-} 
+}
 
+// For adding post  
 if(isset($_POST['submit'])) {
-    $posttitle = mysqli_real_escape_string($con, $_POST['posttitle']);
-    $catid = intval($_POST['category']);
-    $subcatid = intval($_POST['subcategory']);
-    $postdetails = mysqli_real_escape_string($con, $_POST['postdescription']);
-    $postedby = mysqli_real_escape_string($con, $_SESSION['login']);
+    $posttitle = $_POST['posttitle'];
+    $catid = $_POST['category'];
+    $subcatid = $_POST['subcategory'];
+    $postdetails = addslashes($_POST['postdescription']);
+    $postedby = $_SESSION['login'];
     $arr = explode(" ", $posttitle);
     $url = implode("-", $arr);
     $imgfile = $_FILES["postimage"]["name"];
     $extension = substr($imgfile, strlen($imgfile) - 4, strlen($imgfile));
     $allowed_extensions = array(".jpg", ".jpeg", ".png", ".gif");
-
-    if (!in_array($extension, $allowed_extensions)) {
+    if(!in_array($extension, $allowed_extensions)) {
         echo "<script>alert('Invalid format. Only jpg / jpeg / png / gif format allowed');</script>";
     } else {
         $imgnewfile = md5($imgfile) . $extension;
-        move_uploaded_file($_FILES["postimage"]["tmp_name"], "postimages/" . $imgnewfile);
-        $status = 1;
-
-        // Use mysqli_query to insert data into the database
-        $query = "INSERT INTO tblposts (PostTitle, CategoryId, SubCategoryId, PostDetails, PostUrl, Is_Active, PostImage, postedBy) 
-                  VALUES ('$posttitle', '$catid', '$subcatid', '$postdetails', '$url', '$status', '$imgnewfile', '$postedby')";
-        
-        if (mysqli_query($con, $query)) {
-            $msg = "Post successfully added";
+        if (move_uploaded_file($_FILES["postimage"]["tmp_name"], "postimages/" . $imgnewfile)) {
+            $status = 1;
+            $query = mysqli_query($con, "INSERT INTO tblposts(PostTitle, CategoryId, SubCategoryId, PostDetails, PostUrl, Is_Active, PostImage, postedBy) VALUES('$posttitle', '$catid', '$subcatid', '$postdetails', '$url', '$status', '$imgnewfile', '$postedby')");
+            
+            if($query) {
+                $msg = "Post successfully added";
+            } else {
+                $error = "Database query failed: " . mysqli_error($con);
+                echo "<pre>$error</pre>"; // Display detailed error
+            }
         } else {
-            $error = "Something went wrong. Please try again.";    
+            $error = "Failed to upload image.";
         }
     }
 }
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -48,59 +53,52 @@ if(isset($_POST['submit'])) {
     <meta name="description" content="A fully featured admin theme which can be used to build CRM, CMS, etc.">
     <meta name="author" content="Coderthemes">
     <title>Newsportal | Add Post</title>
+
+    <!-- Tailwind CSS -->
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="https://cdn.materialdesignicons.com/5.4.55/css/materialdesignicons.min.css">
     <script src="../assets/js/modernizr.min.js"></script>
 </head>
-<body class="bg-gray-100 min-w-full sm:min-w-full">
-<?php include('../includes/topheader.php'); ?>
-
-<div id="wrapper" class="flex flex-row min-h-screen">
+<body class="bg-gray-100">
+    <?php include('../includes/topheader.php'); ?>
+    
+    <div id="wrapper" class="flex">
     <div id="toggleContent">
-        <?php include('../includes/leftsidebar.php'); ?>
-    </div>
+            <?php include('../includes/leftsidebar.php'); ?>
+        </div>
 
-    <div class="content p-5 flex flex-col w-full">
-        <div class="container mx-auto py-0">
+        <div class="content flex-1 p-6">
             <div class="container mx-auto">
-            <div class="mb-6">
-                    <div class="text-xl font-semibold ">Add Post</div>
-                    <ol class="flex justify-end space-x-1.5 text-sm text-gray-500">
-                        <li><a href="./admin.php" class="hover:text-gray-900">Admin /</a></li>
-                        <li><a href="#" class="hover:text-gray-900">Posts /</a></li>
-                        <li class="text-gray-900">Add Post</li>
-                    </ol>
+                <div class="text-xl font-semibold mb-4">Add Post</div>
+                <div class="bg-white p-6 rounded-lg shadow-md">
+                <div class="mb-6">
+                    <?php if($msg){ ?>
+                        <div class="mb-4 p-3 rounded bg-green-200 text-green-800 border border-green-300">
+                            <strong>Well done!</strong> <?php echo htmlentities($msg); ?>
+                        </div>
+                    <?php } ?>
+                    <?php if($error){ ?>
+                        <div class="mb-4 p-3 rounded bg-red-200 text-red-800 border border-red-300">
+                            <strong>Oh snap!</strong> <?php echo htmlentities($error); ?>
+                        </div>
+                    <?php } ?>
                 </div>
 
-                <!-- Success Message -->
-                <?php if(isset($msg)): ?>
-                <div class="p-4 mb-4 bg-green-100 text-green-800 border border-green-300 rounded">
-                    <strong>Well done!</strong> <?php echo htmlentities($msg);?>
-                </div>
-                <?php endif; ?>
-
-                <!-- Error Message -->
-                <?php if(isset($error)): ?>
-                <div class="p-4 mb-4 bg-red-100 text-red-800 border border-red-300 rounded">
-                    <strong>Oh snap!</strong> <?php echo htmlentities($error);?>
-                </div>
-                <?php endif; ?>
-
-                <div class="bg-white p-6 rounded-lg shadow-md w-full">
                     <form name="addpost" method="post" enctype="multipart/form-data">
                         <div class="mb-4">
-                            <label class="block text-gray-700 font-medium mb-2" for="posttitle">Post Title</label>
-                            <input type="text" class="w-full p-2 border border-gray-300 rounded-lg shadow-sm focus:ring focus:ring-blue-200 focus:border-blue-500" id="posttitle" name="posttitle" placeholder="Enter title" required>
+                            <label class="block text-gray-700">Post Title</label>
+                            <input type="text" class="mt-1 block w-full border border-gray-300 rounded-lg p-2" id="posttitle" name="posttitle" placeholder="Enter title" required>
                         </div>
 
                         <div class="mb-4">
-                            <label class="block text-gray-700 font-medium mb-2" for="category">Category</label>
-                            <select class="form-select mt-1 p-1 block w-full border border-gray-300 rounded-md shadow-sm" name="category" id="category" onChange="getSubCat(this.value);" required>
+                            <label class="block text-gray-700">Category</label>
+                            <select class="mt-1 block w-full border border-gray-300 rounded-lg p-2" name="category" id="category" onChange="getSubCat(this.value);" required>
                                 <option value="">Select Category</option>
                                 <?php
+                                // Fetching active categories
                                 $ret = mysqli_query($con, "SELECT id, CategoryName FROM tblcategory WHERE Is_Active=1");
-                                while ($result = mysqli_fetch_array($ret)) {
+                                while($result = mysqli_fetch_array($ret)) {
                                 ?>
                                     <option value="<?php echo htmlentities($result['id']); ?>"><?php echo htmlentities($result['CategoryName']); ?></option>
                                 <?php } ?>
@@ -108,27 +106,26 @@ if(isset($_POST['submit'])) {
                         </div>
 
                         <div class="mb-4">
-                            <label class="block text-gray-700 font-medium mb-2" for="subcategory">Sub Category</label>
-                            <select class="form-select mt-1 p-1 block w-full border border-gray-300 rounded-md shadow-sm" name="subcategory" id="subcategory" required>
-                            <option value="">Select Sub Category</option>
-                                <?php
-                                // Fetching active subcategories based on category selection
-                                $ret = mysqli_query($con, "SELECT CategoryId, Subcategory FROM tblsubcategory WHERE Is_Active=1");
-                                while ($result = mysqli_fetch_array($ret)) {
-                                ?>
-                                    <option value="<?php echo htmlentities($result['CategoryId']); ?>"><?php echo htmlentities($result['Subcategory']); ?></option>
-                                <?php } ?>
-                            </select>
+                            <label class="block text-gray-700">Sub Category</label>
+                            <select class="w-full p-2 border border-gray-300 rounded" name="subcategory" required>
+    <option value="">Select Sub Category</option>
+    <?php
+    $ret = mysqli_query($con, "SELECT SubCategoryId, Subcategory FROM tblsubcategory WHERE Is_Active=1");
+    while ($result = mysqli_fetch_array($ret)) {
+    ?>
+        <option value="<?php echo htmlentities($result['SubCategoryId']); ?>"><?php echo htmlentities($result['Subcategory']); ?></option>
+    <?php } ?>
+</select>
                         </div>
 
                         <div class="mb-4">
-                            <label class="block text-gray-700 font-medium mb-2" for="postdescription">Post Details</label>
-                            <textarea class="form-textarea mt-1 block w-full border border-gray-300 rounded-md shadow-sm" name="postdescription" rows="5" required></textarea>
+                            <label class="block text-gray-700">Post Details</label>
+                            <textarea class="mt-1 block w-full border border-gray-300 rounded-lg p-2" name="postdescription" rows="5" required></textarea>
                         </div>
 
                         <div class="mb-4">
-                            <label class="block text-gray-700 font-medium mb-2" for="postimage">Feature Image</label>
-                            <input type="file" class="form-input mt-1 block w-full border border-gray-300 rounded-md shadow-sm" id="postimage" name="postimage" required>
+                            <label class="block text-gray-700">Feature Image</label>
+                            <input type="file" class="mt-1 block w-full border border-gray-300 rounded-lg p-2" id="postimage" name="postimage" required>
                         </div>
 
                         <div class="flex justify-end space-x-4">
@@ -139,9 +136,9 @@ if(isset($_POST['submit'])) {
                 </div>
             </div>
         </div>
-        </div>
     </div>
-    <?php include('../includes/footer.php');?>
+
+    <?php include('../includes/footer.php'); ?>
     <div class="fixed inset-0 bg-gray-800 bg-opacity-50 z-50 hidden" id="right-sidebar">
         <div class="bg-white w-64 p-4">
             <button class="text-gray-600" id="close-sidebar">
@@ -187,6 +184,15 @@ if(isset($_POST['submit'])) {
         <script src="../assets/js/jquery.min.js"></script>
  
         <script src="../assets/js/jquery.app.js"></script>
+    <script>
+        jQuery(document).ready(function(){
+            $('.summernote').summernote({
+                height: 240,
+                minHeight: null,
+                maxHeight: null,
+                focus: false
+            });
+        });
+    </script>
 </body>
 </html>
-<?php ?>
