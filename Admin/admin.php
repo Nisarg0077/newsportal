@@ -67,7 +67,7 @@
                                             ?>
                                         <h2 class="text-2xl font-bold"><?php echo htmlentities($countcat); ?></h2>
                                     </div>
-                                    <i class="mdi mdi-chart-areaspline text-4xl text-gray-600"></i>
+                                    <i class="fa-solid fa-list text-4xl text-gray-600"></i>
                                 </div>
                             </a>
 
@@ -82,7 +82,7 @@
                                         ?>
                                         <h2 class="text-2xl font-bold"><?php echo htmlentities($countsubcat); ?></h2>
                                     </div>
-                                    <i class="mdi mdi-layers text-4xl text-gray-600"></i>
+                                    <i class="fa-solid fa-table-list text-4xl text-gray-600"></i>
                                 </div>
                             </a>
 
@@ -96,7 +96,7 @@
                                             ?>
                                         <h2 class="text-2xl font-bold"><?php echo htmlentities($countposts); ?></h2>
                                     </div>
-                                    <i class="mdi mdi-layers text-4xl text-gray-600"></i>
+                                    <i class="fa-solid fa-newspaper text-4xl text-gray-600"></i>
                                 </div>
                             </a>
                         </div>
@@ -113,7 +113,7 @@
                                             ?>
                                         <h2 class="text-2xl font-bold"><?php echo htmlentities($countposts); ?></h2>
                                     </div>
-                                    <i class="mdi mdi-layers text-4xl text-gray-600"></i>
+                                    <i class="fa-solid fa-dumpster text-4xl text-gray-600"></i>
                                 </div>
                             </a>
                         </div>

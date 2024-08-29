@@ -2,6 +2,7 @@
 session_start();
 include('../conn.php');
 error_reporting(0);
+
 if(strlen($_SESSION['login'])==0) { 
     header('location:index.php');
 } else {
@@ -15,6 +16,29 @@ if($_GET['action']=='del') {
         $error = "Something went wrong. Please try again.";    
     } 
 }
+
+// Fetch categories for the dropdown
+$categoryQuery = mysqli_query($con, "SELECT id, CategoryName FROM tblcategory WHERE Is_Active = 1");
+$categories = [];
+while($catRow = mysqli_fetch_assoc($categoryQuery)) {
+    $categories[] = $catRow;
+}
+
+// Handle search and filter
+$searchTitle = $_GET['searchTitle'] ?? '';
+$filterCategory = $_GET['filterCategory'] ?? '';
+
+// Pagination variables
+$limit = 10; // Number of posts per page
+$page = isset($_GET['page']) ? intval($_GET['page']) : 1;
+$offset = ($page - 1) * $limit;
+
+// Adjusted query with search, filter, and pagination
+$query = mysqli_query($con, "SELECT tblposts.id AS postid, tblposts.PostTitle AS title, tblposts.PostingDate AS PostingDate, tblcategory.CategoryName AS category, tblsubcategory.Subcategory AS subcategory FROM tblposts LEFT JOIN tblcategory ON tblcategory.id = tblposts.CategoryId LEFT JOIN tblsubcategory ON tblsubcategory.SubCategoryId = tblposts.SubCategoryId WHERE tblposts.Is_Active = 1 AND (tblposts.PostTitle LIKE '%$searchTitle%') AND (tblposts.CategoryId = '$filterCategory' OR '$filterCategory' = '') LIMIT $limit OFFSET $offset");
+$totalPostsQuery = mysqli_query($con, "SELECT COUNT(*) AS total FROM tblposts WHERE Is_Active = 1 AND (PostTitle LIKE '%$searchTitle%') AND (CategoryId = '$filterCategory' OR '$filterCategory' = '')");
+$totalPosts = mysqli_fetch_assoc($totalPostsQuery)['total'];
+$totalPages = ceil($totalPosts / $limit);
+
 ?>
 
 <!DOCTYPE html>
@@ -38,7 +62,7 @@ if($_GET['action']=='del') {
 
 <body class="bg-gray-100">
 
-    <?php include('../includes/topheader.php'); ?>
+<?php include('../includes/topheader.php'); ?>
     <!-- Begin page -->
     <div id="wrapper" class="flex flex-row min-h-screen mb-0">
         
@@ -85,6 +109,23 @@ if($_GET['action']=='del') {
                     </a>
                 </div>
 
+                <!-- Search and Filter -->
+                <div class="flex mb-6 space-x-4">
+                    <form method="GET" action="manage-posts.php" class="flex space-x-4">
+                        <input type="text" name="searchTitle" placeholder="Search by title..." value="<?php echo htmlentities($searchTitle); ?>" class="px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+
+                        <select name="filterCategory" onchange="this.form.submit()" class="px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                            <option value="">All Categories</option>
+                            <?php foreach($categories as $category) { ?>
+                                <option value="<?php echo $category['id']; ?>" <?php echo ($filterCategory == $category['id']) ? 'selected' : ''; ?>>
+                                    <?php echo htmlentities($category['CategoryName']); ?>
+                                </option>
+                            <?php } ?>
+                        </select>
+                        <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600">Search</button>
+                    </form>
+                </div>
+
                 <!-- Posts Table -->
                 <div class="bg-white shadow-md rounded-lg overflow-hidden">
                     <table class="min-w-full bg-white border border-gray-200">
@@ -99,12 +140,11 @@ if($_GET['action']=='del') {
                         </thead>
                         <tbody>
                             <?php
-                            $query = mysqli_query($con, "SELECT tblposts.id AS postid, tblposts.PostTitle AS title, tblposts.PostingDate AS PostingDate, tblcategory.CategoryName AS category, tblsubcategory.Subcategory AS subcategory FROM tblposts LEFT JOIN tblcategory ON tblcategory.id = tblposts.CategoryId LEFT JOIN tblsubcategory ON tblsubcategory.SubCategoryId = tblposts.SubCategoryId WHERE tblposts.Is_Active = 1");
                             $rowcount = mysqli_num_rows($query);
                             if($rowcount == 0) {
                             ?>
                             <tr>
-                                <td colspan="4" class="text-center py-4 text-red-600">No record found</td>
+                                <td colspan="5" class="text-center py-4 text-red-600">No record found</td>
                             </tr>
                             <?php 
                             } else {
@@ -124,6 +164,22 @@ if($_GET['action']=='del') {
                         </tbody>
                     </table>
                 </div>
+
+                <!-- Pagination -->
+                <div class="mt-6 flex justify-center items-center">
+                    <div class="space-x-2">
+                        <?php if($page > 1) { ?>
+                            <a href="?searchTitle=<?php echo $searchTitle; ?>&filterCategory=<?php echo $filterCategory; ?>&page=<?php echo $page - 1; ?>" class="px-3 py-2 bg-gray-300 text-gray-800 rounded-md hover:bg-gray-400">Previous</a>
+                        <?php } ?>
+                        <?php for($i = 1; $i <= $totalPages; $i++) { ?>
+                            <a href="?searchTitle=<?php echo $searchTitle; ?>&filterCategory=<?php echo $filterCategory; ?>&page=<?php echo $i; ?>" class="px-3 py-2 bg-gray-300 text-gray-800 rounded-md hover:bg-gray-400 <?php echo ($page == $i) ? 'bg-gray-400' : ''; ?>"><?php echo $i; ?></a>
+                        <?php } ?>
+                        <?php if($page < $totalPages) { ?>
+                            <a href="?searchTitle=<?php echo $searchTitle; ?>&filterCategory=<?php echo $filterCategory; ?>&page=<?php echo $page + 1; ?>" class="px-3 py-2 bg-gray-300 text-gray-800 rounded-md hover:bg-gray-400">Next</a>
+                        <?php } ?>
+                    </div>
+                </div>
+
                 
             </div> <!-- content -->
         </div> <!-- Right Content -->

@@ -47,7 +47,7 @@ if(strlen($_SESSION['login'])==0) {
                     <nav class="mt-2 ">
                         <ol class="flex space-x-2 text-gray-600">
                             <li><a href="#" class="hover:text-blue-500">Admin /</a></li>
-                            <li><a href="#" class="hover:text-blue-500">Subadmin /</a></li>
+                            <li><a href="./manage-subadmins.php" class="hover:text-blue-500">Subadmin /</a></li>
                             <li>Manage Sub-admins</li>
                         </ol>
                     </nav>
