@@ -13,7 +13,7 @@ if(strlen($_SESSION['login'])==0) {
         $usertype = '0';
         $query = mysqli_query($con, "INSERT INTO tbladmin(AdminUserName,AdminEmailId,AdminPassword,userType) VALUES('$username','$email','$password','$usertype')");
         if ($query) {
-            $msg = "Sub-Category created ";
+            $msg = "Sub-Admin created ";
         } else {
             $error = "Something went wrong . Please try again.";
         }
@@ -53,7 +53,7 @@ if(strlen($_SESSION['login'])==0) {
                 <nav class="mt-2 ">
                     <ol class="flex space-x-2 text-gray-600">
                         <li><a href="#" class="hover:text-blue-500">Admin /</a></li>
-                        <li><a href="#" class="hover:text-blue-500">Subadmin /</a></li>
+                        <li><a href="./manage-subadmins.php" class="hover:text-blue-500">Subadmin /</a></li>
                         <li>Add Subadmin</li>
                     </ol>
                 </nav>

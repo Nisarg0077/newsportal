@@ -18,33 +18,6 @@
     <title>News Everyday</title>
 
     <style>
-    /* Custom Swiper styles */
-    /* .swiper-slide {
-      position: relative;
-    }
-    .swiper-slide img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      border-radius: 0.5rem;
-    }
-    .swiper-slide .overlay {
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      background: rgba(0, 0, 0, 0.5);
-      color: white;
-      padding: 1rem;
-      text-align: left;
-    }
-    .swiper-pagination {
-      bottom: 10px !important;
-    }
-    .swiper-button-next,
-    .swiper-button-prev {
-      color: red;
-    } */
     .swiper-pagination-bullet {
     background-color: lightyellow;
     opacity: 0.8;
@@ -200,7 +173,7 @@
     spaceBetween: 10,
     loop: true,
     autoplay: {
-      delay: 3500,
+      delay: 2800,
       disableOnInteraction: false,
     },
     pagination: {
