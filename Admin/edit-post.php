@@ -7,7 +7,7 @@ error_reporting(0);
 if(strlen($_SESSION['login']) == 0) { 
     header('location:index.php');
     exit;
-} 
+}
 
 if(isset($_POST['update'])) {
     // Use mysqli_real_escape_string to escape special characters in input data
@@ -21,15 +21,18 @@ if(isset($_POST['update'])) {
     $status = 1;
     $postid = intval($_GET['pid']);
 
-    // Prepare the SQL statement
-    $query = "UPDATE tblposts SET PostTitle='$posttitle', CategoryId='$catid', SubCategoryId='$subcatid', PostDetails='$postdetails', PostUrl='$url', Is_Active='$status', lastUpdatedBy='$lastuptdby' WHERE id='$postid'";
-
-    $result = mysqli_query($con, $query);
-
-    if($result) {
-        $msg = "Post updated successfully";
+    // Use prepared statements to prevent SQL injection
+    $query = "UPDATE tblposts SET PostTitle=?, CategoryId=?, SubCategoryId=?, PostDetails=?, PostUrl=?, Is_Active=?, lastUpdatedBy=? WHERE id=?";
+    if ($stmt = $con->prepare($query)) {
+        $stmt->bind_param('siiissii', $posttitle, $catid, $subcatid, $postdetails, $url, $status, $lastuptdby, $postid);
+        if ($stmt->execute()) {
+            $msg = "Post updated successfully";
+        } else {
+            $error = "Something went wrong. Please try again.";
+        }
+        $stmt->close();
     } else {
-        $error = "Something went wrong. Please try again.";    
+        $error = "Database query preparation failed.";
     }
 }
 ?>
@@ -81,22 +84,29 @@ if(isset($_POST['update'])) {
 
                 <?php
                 $postid = intval($_GET['pid']);
-                $query = "SELECT tblposts.id as postid, tblposts.PostImage, tblposts.PostTitle as title, tblposts.PostDetails, tblcategory.CategoryName as category, tblcategory.id as catid, tblsubcategory.SubCategoryId as subcatid, tblsubcategory.Subcategory as subcategory FROM tblposts LEFT JOIN tblcategory ON tblcategory.id = tblposts.CategoryId LEFT JOIN tblsubcategory ON tblsubcategory.SubCategoryId = tblposts.SubCategoryId WHERE tblposts.id = '$postid' AND tblposts.Is_Active = 1";
-                $result = mysqli_query($con, $query);
-                $row = mysqli_fetch_array($result);
+                $query = "SELECT tblposts.id as postid, tblposts.PostImage, tblposts.PostTitle as title, tblposts.PostDetails, tblcategory.CategoryName as category, tblcategory.id as catid, tblsubcategory.SubCategoryId as subcatid, tblsubcategory.Subcategory as subcategory FROM tblposts LEFT JOIN tblcategory ON tblcategory.id = tblposts.CategoryId LEFT JOIN tblsubcategory ON tblsubcategory.SubCategoryId = tblposts.SubCategoryId WHERE tblposts.id = ? AND tblposts.Is_Active = 1";
+                if ($stmt = $con->prepare($query)) {
+                    $stmt->bind_param('i', $postid);
+                    $stmt->execute();
+                    $result = $stmt->get_result();
+                    $row = $result->fetch_assoc();
+                    $stmt->close();
+                } else {
+                    $error = "Database query preparation failed.";
+                }
                 ?>
                 <!-- Post Edit Form -->
-                <form name="addpost" method="post" class="bg-white p-6 rounded-lg shadow-lg">
+                <form id="editPostForm" method="post" class="bg-white p-6 rounded-lg shadow-lg">
                     <input type="hidden" name="postid" value="<?php echo htmlentities($row['postid']); ?>">
 
                     <div class="mb-4">
                         <label for="posttitle" class="block text-gray-700">Post Title</label>
-                        <input type="text" class="mt-1 block w-full border border-gray-300 rounded-lg p-2" id="posttitle" name="posttitle" value="<?php echo htmlentities($row['title']); ?>" placeholder="Enter title" required>
+                        <input type="text" class="mt-1 block w-full border border-gray-300 rounded-lg p-2" id="posttitle" name="posttitle" value="<?php echo htmlentities($row['title']); ?>" placeholder="Enter title">
                     </div>
 
                     <div class="mb-4">
                         <label for="category" class="block text-gray-700">Category</label>
-                        <select class="mt-1 block w-full border border-gray-300 rounded-lg p-2" name="category" id="category" required>
+                        <select class="mt-1 block w-full border border-gray-300 rounded-lg p-2" name="category" id="category">
                             <option value="<?php echo htmlentities($row['catid']); ?>"><?php echo htmlentities($row['category']); ?></option>
                             <?php
                             $ret = mysqli_query($con, "SELECT id, CategoryName FROM tblcategory WHERE Is_Active = 1");
@@ -109,14 +119,14 @@ if(isset($_POST['update'])) {
 
                     <div class="mb-4">
                         <label for="subcategory" class="block text-gray-700">Sub Category</label>
-                        <select class="mt-1 block w-full border border-gray-300 rounded-lg p-2" name="subcategory" id="subcategory" required>
+                        <select class="mt-1 block w-full border border-gray-300 rounded-lg p-2" name="subcategory" id="subcategory">
                             <option value="<?php echo htmlentities($row['subcatid']); ?>"><?php echo htmlentities($row['subcategory']); ?></option>
                         </select>
                     </div>
 
                     <div class="mb-4">
                         <label for="postdescription" class="block text-gray-700">Post Details</label>
-                        <textarea class="mt-1 block w-full border border-gray-300 rounded-lg p-2" name="postdescription" rows="5" required><?php echo htmlentities($row['PostDetails']); ?></textarea>
+                        <textarea class="mt-1 block w-full border border-gray-300 rounded-lg p-2" name="postdescription" rows="5"><?php echo htmlentities($row['PostDetails']); ?></textarea>
                     </div>
 
                     <div class="mb-4">
@@ -172,16 +182,22 @@ if(isset($_POST['update'])) {
             document.getElementById('toggleContent').classList.toggle('hidden');
         });
 
+        // JavaScript validation
+        document.getElementById('editPostForm').addEventListener('submit', function(event) {
+            var posttitle = document.getElementById('posttitle').value.trim();
+            var category = document.getElementById('category').value;
+            var subcategory = document.getElementById('subcategory').value;
+            var postdescription = document.querySelector('textarea[name="postdescription"]').value.trim();
+
+            if (!posttitle || !category || !subcategory || !postdescription) {
+                event.preventDefault(); // Prevent form submission
+                alert('Please fill in all fields.');
+            }
+        });
     </script>
 
-        <script>
-            var resizefunc = [];
-        </script>
-
-        <!-- jQuery  -->
-        <script src="../assets/js/jquery.min.js"></script>
- 
-        <script src="../assets/js/jquery.app.js"></script>
-</div>
+    <!-- jQuery -->
+    <script src="../assets/js/jquery.min.js"></script>
+    <script src="../assets/js/jquery.app.js"></script>
 </body>
 </html>

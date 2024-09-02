@@ -4,27 +4,24 @@ include('../conn.php');
 error_reporting(0);
 if(strlen($_SESSION['login'])==0)
   { 
-header('location:index.php');
-}
+    header('location:index.php');
+  }
 else{
-if(isset($_POST['submit']))
-{
-$catid=intval($_GET['cid']);
-$category=$_POST['category'];
-$description=$_POST['description'];
-$query=mysqli_query($con,"Update  tblcategory set CategoryName='$category',Description='$description' where id='$catid'");
-if($query)
-{
-$msg="Category Updated successfully ";
-}
-else{
-$error="Something went wrong . Please try again.";    
-} 
-}
-
-
+  if(isset($_POST['submit']))
+  {
+    $catid=intval($_GET['cid']);
+    $category=$_POST['category'];
+    $description=$_POST['description'];
+    $query=mysqli_query($con,"Update  tblcategory set CategoryName='$category',Description='$description' where id='$catid'");
+    if($query)
+    {
+      $msg="Category Updated successfully ";
+    }
+    else{
+      $error="Something went wrong . Please try again.";    
+    } 
+  }
 ?>
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -33,9 +30,9 @@ $error="Something went wrong . Please try again.";
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>News Portal | Dashboard</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-        <link rel="stylesheet" href="https://cdn.materialdesignicons.com/5.4.55/css/materialdesignicons.min.css">
-        <script src="../assets/js/modernizr.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.materialdesignicons.com/5.4.55/css/materialdesignicons.min.css">
+    <script src="../assets/js/modernizr.min.js"></script>
 </head>
 <body class="bg-gray-100 min-w-full sm:min-w-full">
     <?php include('../includes/topheader.php'); ?>
@@ -66,31 +63,33 @@ $error="Something went wrong . Please try again.";
                     </div>
                     <?php } ?>
                     <?php 
-$catid=intval($_GET['cid']);
-$query=mysqli_query($con,"Select id,CategoryName,Description,PostingDate,UpdationDate from tblcategory where Is_Active=1 and id='$catid'");
-$cnt=1;
-while($row=mysqli_fetch_array($query))
-{
-?>
-    <form class="space-y-4" name="category" method="post">
+                    $catid=intval($_GET['cid']);
+                    $query=mysqli_query($con,"Select id,CategoryName,Description,PostingDate,UpdationDate from tblcategory where Is_Active=1 and id='$catid'");
+                    $cnt=1;
+                    while($row=mysqli_fetch_array($query))
+                    {
+                    ?>
+                    <form class="space-y-4" name="category" method="post" onsubmit="return validateForm()">
                         <div class="flex items-center">
                             <label class="w-1/5 text-gray-700">Category</label>
                             <div class="w-4/5">
-                                <input type="text" class="w-full p-2 border border-gray-300 rounded" value="<?php echo htmlentities($row['CategoryName']);?>" name="category" required>
+                                <input type="text" class="w-full p-2 border border-gray-300 rounded" value="<?php echo htmlentities($row['CategoryName']);?>" name="category" id="category">
+                                <span id="category-error" class="text-sm text-red-500"></span>
                             </div>
                         </div>
                         <div class="flex items-center">
                             <label class="w-1/5 text-gray-700">Category Description</label>
                             <div class="w-4/5">
-                                <textarea class="w-full p-2 border border-gray-300 rounded" rows="5" name="description" required><?php echo htmlentities($row['Description']);?></textarea>
+                                <textarea class="w-full p-2 border border-gray-300 rounded" rows="5" name="description" id="description"><?php echo htmlentities($row['Description']);?></textarea>
+                                <span id="description-error" class="text-sm text-red-500"></span>
                             </div>
                         </div>
                         <div class="flex justify-end">
                             <button type="submit" class="bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700" name="submit">Submit</button>
                         </div>
                     </form>
-                <?php }?>
-             </div>
+                    <?php }?>
+                </div>
             </div>
         </div>
     </div>
@@ -102,33 +101,12 @@ while($row=mysqli_fetch_array($query))
             </button>
             <h4 class="text-xl font-bold mb-4">Settings</h4>
             <div class="space-y-4">
-                <div class="flex justify-between items-center">
-                    <h5 class="text-gray-700">Notifications</h5>
-                    <input type="checkbox" checked class="switchery" data-color="#7fc1fc" data-size="small"/>
-                </div>
-                <div class="flex justify-between items-center">
-                    <h5 class="text-gray-700">API Access</h5>
-                    <input type="checkbox" checked class="switchery" data-color="#7fc1fc" data-size="small"/>
-                </div>
-                <div class="flex justify-between items-center">
-                    <h5 class="text-gray-700">Auto Updates</h5>
-                    <input type="checkbox" checked class="switchery" data-color="#7fc1fc" data-size="small"/>
-                </div>
-                <div class="flex justify-between items-center">
-                    <h5 class="text-gray-700">Online Status</h5>
-                    <input type="checkbox" checked class="switchery" data-color="#7fc1fc" data-size="small"/>
-                </div>
+                <!-- Sidebar content -->
             </div>
         </div>
     </div>
 
     <script>
-    document.getElementById('user-menu-button').addEventListener('click', function() {
-        const userMenu = document.getElementById('user-menu');
-        userMenu.classList.toggle('hidden');
-    });
-</script>
-<script>
         document.getElementById('close-sidebar').addEventListener('click', function() {
             document.getElementById('right-sidebar').classList.add('hidden');
         });
@@ -136,16 +114,36 @@ while($row=mysqli_fetch_array($query))
             document.getElementById('toggleContent').classList.toggle('hidden');
         });
 
+        function validateForm() {
+            let isValid = true;
+
+            // Validate Category Name
+            const category = document.getElementById('category').value.trim();
+            const categoryError = document.getElementById('category-error');
+            if (category === '') {
+                categoryError.textContent = 'Category name is required';
+                isValid = false;
+            } else {
+                categoryError.textContent = '';
+            }
+
+            // Validate Category Description
+            const description = document.getElementById('description').value.trim();
+            const descriptionError = document.getElementById('description-error');
+            if (description === '') {
+                descriptionError.textContent = 'Category description is required';
+                isValid = false;
+            } else {
+                descriptionError.textContent = '';
+            }
+
+            return isValid;
+        }
     </script>
 
-        <script>
-            var resizefunc = [];
-        </script>
-
-        <!-- jQuery  -->
-        <script src="../assets/js/jquery.min.js"></script>
- 
-        <script src="../assets/js/jquery.app.js"></script>
+    <!-- jQuery -->
+    <script src="../assets/js/jquery.min.js"></script>
+    <script src="../assets/js/jquery.app.js"></script>
 </body>
 </html>
 <?php } ?>

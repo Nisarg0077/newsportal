@@ -93,7 +93,8 @@ if(strlen($_SESSION['login'])==0) {
 
                     <div class="flex flex-col">
                         <label for="emailid" class="text-gray-700 text-sm font-medium">Email Id</label>
-                        <input type="text" id="emailid" value="<?php echo htmlentities($row['AdminEmailId']);?>" class="w-full p-2 border border-gray-300 rounded-lg shadow-sm focus:ring focus:ring-blue-200 focus:border-blue-500" name="emailid" required>
+                        <input type="email" id="emailid" value="<?php echo htmlentities($row['AdminEmailId']);?>" class="w-full p-2 border border-gray-300 rounded-lg shadow-sm focus:ring focus:ring-blue-200 focus:border-blue-500" name="emailid" >
+                        <span id="emailError" class="text-red-600 text-sm hidden">Please enter a valid email address.</span>
                     </div>
 
                     <div class="flex flex-col">
@@ -107,7 +108,7 @@ if(strlen($_SESSION['login'])==0) {
                     </div>
 
                     <div class="flex justify-end">
-                        <button type="submit" class="bg-blue-600 text-white py-2 px-4 rounded-lg shadow-md hover:bg-blue-700 focus:ring focus:ring-blue-200 focus:ring-opacity-50" name="submit">Update</button>
+                        <button type="submit" class="bg-blue-600 text-white py-2 px-4 rounded-lg shadow-md hover:bg-blue-700 focus:ring focus:ring-blue-200 focus:ring-opacity-50" name="submit" onclick="return validateForm()">Update</button>
                     </div>
                 </form>
             </div>
@@ -154,7 +155,19 @@ if(strlen($_SESSION['login'])==0) {
         });
 
     </script>
-
+    <script>
+function validateForm() {
+    const email = document.getElementById('emailid').value;
+    var emailError = document.getElementById('emailError');
+    const emailPattern = /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$/;
+    
+    // Reset error message
+    if (!email.match(emailPattern)) {
+        alert('Please enter a valid email address.');
+        return false;
+    }
+}
+</script>
         <script>
             var resizefunc = [];
         </script>

@@ -2,6 +2,7 @@
 session_start();
 include('../conn.php');
 error_reporting(0);
+
 if (strlen($_SESSION['login']) == 0) {
     header('location:index.php');
 } else {
@@ -10,11 +11,17 @@ if (strlen($_SESSION['login']) == 0) {
         $subcatname = $_POST['subcategory'];
         $subcatdescription = $_POST['sucatdescription'];
         $status = 1;
-        $query = mysqli_query($con, "insert into tblsubcategory(CategoryId,Subcategory,SubCatDescription,Is_Active) values('$categoryid','$subcatname','$subcatdescription','$status')");
-        if ($query) {
-            $msg = "Sub-Category created ";
+
+        // Manual validation
+        if (empty($categoryid) || empty($subcatname) || empty($subcatdescription)) {
+            $error = "All fields are required.";
         } else {
-            $error = "Something went wrong . Please try again.";
+            $query = mysqli_query($con, "insert into tblsubcategory(CategoryId,Subcategory,SubCatDescription,Is_Active) values('$categoryid','$subcatname','$subcatdescription','$status')");
+            if ($query) {
+                $msg = "Sub-Category created ";
+            } else {
+                $error = "Something went wrong. Please try again.";
+            }
         }
     }
 ?>
@@ -57,14 +64,14 @@ if (strlen($_SESSION['login']) == 0) {
 
                         <div class="row mb-4">
                             <div class="col-sm-6">
-                                <!--- Success Message --->
+                                <!-- Success Message -->
                                 <?php if ($msg) { ?>
                                     <div class="mb-4 p-3 rounded bg-green-200 text-green-800 border border-green-300">
                                         <strong>Well done!</strong> <?php echo htmlentities($msg); ?>
                                     </div>
                                 <?php } ?>
 
-                                <!--- Error Message --->
+                                <!-- Error Message -->
                                 <?php if ($error) { ?>
                                     <div class="mb-4 p-3 rounded bg-red-200 text-red-800 border border-red-300">
                                         <strong>Oh snap!</strong> <?php echo htmlentities($error); ?>
@@ -77,7 +84,7 @@ if (strlen($_SESSION['login']) == 0) {
                             <div class="flex items-center">
                                 <label class="w-1/5 text-gray-700">Category</label>
                                 <div class="w-4/5">
-                                    <select class="w-full p-2 border border-gray-300 rounded" name="category" required>
+                                    <select class="w-full p-2 border border-gray-300 rounded" name="category">
                                         <option value="">Select Category</option>
                                         <?php
                                         // Fetching active categories
@@ -92,13 +99,13 @@ if (strlen($_SESSION['login']) == 0) {
                             <div class="flex items-center">
                                 <label class="w-1/5 text-gray-700">Sub-Category</label>
                                 <div class="w-4/5">
-                                    <input type="text" class="w-full p-2 border border-gray-300 rounded" name="subcategory" required>
+                                    <input type="text" class="w-full p-2 border border-gray-300 rounded" name="subcategory">
                                 </div>
                             </div>
                             <div class="flex items-center">
                                 <label class="w-1/5 text-gray-700">Sub-Category Description</label>
                                 <div class="w-4/5">
-                                    <textarea class="w-full p-2 border border-gray-300 rounded" rows="5" name="sucatdescription" required></textarea>
+                                    <textarea class="w-full p-2 border border-gray-300 rounded" rows="5" name="sucatdescription"></textarea>
                                 </div>
                             </div>
                             <div class="flex justify-end">
@@ -145,17 +152,15 @@ if (strlen($_SESSION['login']) == 0) {
         document.getElementById('toggleButton').addEventListener('click', function() {
             document.getElementById('toggleContent').classList.toggle('hidden');
         });
-
     </script>
 
-        <script>
-            var resizefunc = [];
-        </script>
+    <script>
+        var resizefunc = [];
+    </script>
 
-        <!-- jQuery  -->
-        <script src="../assets/js/jquery.min.js"></script>
- 
-        <script src="../assets/js/jquery.app.js"></script>
+    <!-- jQuery  -->
+    <script src="../assets/js/jquery.min.js"></script>
+    <script src="../assets/js/jquery.app.js"></script>
 </body>
 </html>
 <?php }  ?>

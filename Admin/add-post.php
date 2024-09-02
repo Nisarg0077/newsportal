@@ -1,9 +1,7 @@
 <?php 
 session_start();
 include('../conn.php');
-// ini_set('display_errors', 1);
-// ini_set('display_startup_errors', 1);
-// error_reporting(E_ALL);
+
 $msg = "";
 $error = "";
 if(strlen($_SESSION['login']) == 0) { 
@@ -64,7 +62,7 @@ if(isset($_POST['submit'])) {
     <?php include('../includes/topheader.php'); ?>
     
     <div id="wrapper" class="flex">
-    <div id="toggleContent">
+        <div id="toggleContent">
             <?php include('../includes/leftsidebar.php'); ?>
         </div>
 
@@ -72,28 +70,28 @@ if(isset($_POST['submit'])) {
             <div class="container mx-auto">
                 <div class="text-xl font-semibold mb-4">Add Post</div>
                 <div class="bg-white p-6 rounded-lg shadow-md">
-                <div class="mb-6">
-                    <?php if($msg){ ?>
-                        <div class="mb-4 p-3 rounded bg-green-200 text-green-800 border border-green-300">
-                            <strong>Well done!</strong> <?php echo htmlentities($msg); ?>
-                        </div>
-                    <?php } ?>
-                    <?php if($error){ ?>
-                        <div class="mb-4 p-3 rounded bg-red-200 text-red-800 border border-red-300">
-                            <strong>Oh snap!</strong> <?php echo htmlentities($error); ?>
-                        </div>
-                    <?php } ?>
-                </div>
+                    <div class="mb-6">
+                        <?php if($msg){ ?>
+                            <div class="mb-4 p-3 rounded bg-green-200 text-green-800 border border-green-300">
+                                <strong>Well done!</strong> <?php echo htmlentities($msg); ?>
+                            </div>
+                        <?php } ?>
+                        <?php if($error){ ?>
+                            <div class="mb-4 p-3 rounded bg-red-200 text-red-800 border border-red-300">
+                                <strong>Oh snap!</strong> <?php echo htmlentities($error); ?>
+                            </div>
+                        <?php } ?>
+                    </div>
 
-                    <form name="addpost" method="post" enctype="multipart/form-data">
+                    <form name="addpost" id="addPostForm" method="post" enctype="multipart/form-data">
                         <div class="mb-4">
                             <label class="block text-gray-700">Post Title</label>
-                            <input type="text" class="mt-1 block w-full border border-gray-300 rounded-lg p-2" id="posttitle" name="posttitle" placeholder="Enter title" required>
+                            <input type="text" class="mt-1 block w-full border border-gray-300 rounded-lg p-2" id="posttitle" name="posttitle" placeholder="Enter title">
                         </div>
 
                         <div class="mb-4">
                             <label class="block text-gray-700">Category</label>
-                            <select class="mt-1 block w-full border border-gray-300 rounded-lg p-2" name="category" id="category" onChange="getSubCat(this.value);" required>
+                            <select class="mt-1 block w-full border border-gray-300 rounded-lg p-2" name="category" id="category" onChange="getSubCat(this.value);">
                                 <option value="">Select Category</option>
                                 <?php
                                 // Fetching active categories
@@ -107,25 +105,25 @@ if(isset($_POST['submit'])) {
 
                         <div class="mb-4">
                             <label class="block text-gray-700">Sub Category</label>
-                            <select class="w-full p-2 border border-gray-300 rounded" name="subcategory" required>
-    <option value="">Select Sub Category</option>
-    <?php
-    $ret = mysqli_query($con, "SELECT SubCategoryId, Subcategory FROM tblsubcategory WHERE Is_Active=1");
-    while ($result = mysqli_fetch_array($ret)) {
-    ?>
-        <option value="<?php echo htmlentities($result['SubCategoryId']); ?>"><?php echo htmlentities($result['Subcategory']); ?></option>
-    <?php } ?>
-</select>
+                            <select class="w-full p-2 border border-gray-300 rounded" name="subcategory" id="subcategory">
+                                <option value="">Select Sub Category</option>
+                                <?php
+                                $ret = mysqli_query($con, "SELECT SubCategoryId, Subcategory FROM tblsubcategory WHERE Is_Active=1");
+                                while ($result = mysqli_fetch_array($ret)) {
+                                ?>
+                                    <option value="<?php echo htmlentities($result['SubCategoryId']); ?>"><?php echo htmlentities($result['Subcategory']); ?></option>
+                                <?php } ?>
+                            </select>
                         </div>
 
                         <div class="mb-4">
                             <label class="block text-gray-700">Post Details</label>
-                            <textarea class="mt-1 block w-full border border-gray-300 rounded-lg p-2" name="postdescription" rows="5" required></textarea>
+                            <textarea class="mt-1 block w-full border border-gray-300 rounded-lg p-2" name="postdescription" rows="5"></textarea>
                         </div>
 
                         <div class="mb-4">
                             <label class="block text-gray-700">Feature Image</label>
-                            <input type="file" class="mt-1 block w-full border border-gray-300 rounded-lg p-2" id="postimage" name="postimage" required>
+                            <input type="file" class="mt-1 block w-full border border-gray-300 rounded-lg p-2" id="postimage" name="postimage">
                         </div>
 
                         <div class="flex justify-end space-x-4">
@@ -164,7 +162,7 @@ if(isset($_POST['submit'])) {
                 </div>
             </div>
         </div>
-
+    </div>
 
     <script>
         document.getElementById('close-sidebar').addEventListener('click', function() {
@@ -174,16 +172,23 @@ if(isset($_POST['submit'])) {
             document.getElementById('toggleContent').classList.toggle('hidden');
         });
 
+        document.getElementById('addPostForm').addEventListener('submit', function(event) {
+            const posttitle = document.getElementById('posttitle').value.trim();
+            const category = document.getElementById('category').value;
+            const subcategory = document.getElementById('subcategory').value;
+            const postdescription = document.querySelector('textarea[name="postdescription"]').value.trim();
+            const postimage = document.getElementById('postimage').files.length;
+
+            if (!posttitle || !category || !subcategory || !postdescription || !postimage) {
+                event.preventDefault(); // Prevent form submission
+                alert('Please fill in all fields and select an image.');
+            }
+        });
     </script>
 
-        <script>
-            var resizefunc = [];
-        </script>
-
-        <!-- jQuery  -->
-        <script src="../assets/js/jquery.min.js"></script>
- 
-        <script src="../assets/js/jquery.app.js"></script>
+    <!-- jQuery  -->
+    <script src="../assets/js/jquery.min.js"></script>
+    <script src="../assets/js/jquery.app.js"></script>
     <script>
         jQuery(document).ready(function(){
             $('.summernote').summernote({
