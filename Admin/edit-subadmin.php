@@ -123,25 +123,6 @@ if(strlen($_SESSION['login'])==0) {
             <button class="text-gray-600" id="close-sidebar">
                 <i class="mdi mdi-close-circle-outline text-2xl"></i>
             </button>
-            <h4 class="text-xl font-bold mb-4">Settings</h4>
-            <div class="space-y-4">
-                <div class="flex justify-between items-center">
-                    <h5 class="text-gray-700">Notifications</h5>
-                    <input type="checkbox" checked class="switchery" data-color="#7fc1fc" data-size="small"/>
-                </div>
-                <div class="flex justify-between items-center">
-                    <h5 class="text-gray-700">API Access</h5>
-                    <input type="checkbox" checked class="switchery" data-color="#7fc1fc" data-size="small"/>
-                </div>
-                <div class="flex justify-between items-center">
-                    <h5 class="text-gray-700">Auto Updates</h5>
-                    <input type="checkbox" checked class="switchery" data-color="#7fc1fc" data-size="small"/>
-                </div>
-                <div class="flex justify-between items-center">
-                    <h5 class="text-gray-700">Online Status</h5>
-                    <input type="checkbox" checked class="switchery" data-color="#7fc1fc" data-size="small"/>
-                </div>
-            </div>
         </div>        
         </div>        
     </div>
