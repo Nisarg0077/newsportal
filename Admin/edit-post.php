@@ -100,12 +100,12 @@ if(isset($_POST['update'])) {
                     <input type="hidden" name="postid" value="<?php echo htmlentities($row['postid']); ?>">
 
                     <div class="mb-4">
-                        <label for="posttitle" class="block text-gray-700">Post Title</label>
+                        <label for="posttitle" class="block text-gray-700 text-lg font-bold">Post Title</label>
                         <input type="text" class="mt-1 block w-full border border-gray-300 rounded-lg p-2" id="posttitle" name="posttitle" value="<?php echo htmlentities($row['title']); ?>" placeholder="Enter title">
                     </div>
 
                     <div class="mb-4">
-                        <label for="category" class="block text-gray-700">Category</label>
+                        <label for="category" class="block text-gray-700 text-lg font-bold">Category</label>
                         <select class="mt-1 block w-full border border-gray-300 rounded-lg p-2" name="category" id="category">
                             <option value="<?php echo htmlentities($row['catid']); ?>"><?php echo htmlentities($row['category']); ?></option>
                             <?php
@@ -118,22 +118,22 @@ if(isset($_POST['update'])) {
                     </div>
 
                     <div class="mb-4">
-                        <label for="subcategory" class="block text-gray-700">Sub Category</label>
+                        <label for="subcategory" class="block text-gray-700 text-lg font-bold">Sub Category</label>
                         <select class="mt-1 block w-full border border-gray-300 rounded-lg p-2" name="subcategory" id="subcategory">
                             <option value="<?php echo htmlentities($row['subcatid']); ?>"><?php echo htmlentities($row['subcategory']); ?></option>
                         </select>
                     </div>
 
                     <div class="mb-4">
-                        <label for="postdescription" class="block text-gray-700">Post Details</label>
+                        <label for="postdescription" class="block text-gray-700 text-lg font-bold">Post Details</label>
                         <textarea class="mt-1 block w-full border border-gray-300 rounded-lg p-2" name="postdescription" rows="5"><?php echo htmlentities($row['PostDetails']); ?></textarea>
                     </div>
 
                     <div class="mb-4">
-                        <label class="block text-gray-700">Post Image</label>
+                        <label class="block text-gray-700 text-lg font-bold">Post Image</label>
                         <img src="postimages/<?php echo htmlentities($row['PostImage']); ?>" width="300" class="mb-2" />
                         <br />
-                        <a href="change-image.php?pid=<?php echo htmlentities($row['postid']); ?>" class="text-blue-600">Update Image</a>
+                        <a href="change-image.php?pid=<?php echo htmlentities($row['postid']); ?>" class="text-white bg-blue-600 py-2 px-4 rounded">Update Image</a>
                     </div>
 
                     <div class="flex justify-end space-x-4">
@@ -152,25 +152,6 @@ if(isset($_POST['update'])) {
             <button class="text-gray-600" id="close-sidebar">
                 <i class="mdi mdi-close-circle-outline text-2xl"></i>
             </button>
-            <h4 class="text-xl font-bold mb-4">Settings</h4>
-            <div class="space-y-4">
-                <div class="flex justify-between items-center">
-                    <h5 class="text-gray-700">Notifications</h5>
-                    <input type="checkbox" checked class="switchery" data-color="#7fc1fc" data-size="small"/>
-                </div>
-                <div class="flex justify-between items-center">
-                    <h5 class="text-gray-700">API Access</h5>
-                    <input type="checkbox" checked class="switchery" data-color="#7fc1fc" data-size="small"/>
-                </div>
-                <div class="flex justify-between items-center">
-                    <h5 class="text-gray-700">Auto Updates</h5>
-                    <input type="checkbox" checked class="switchery" data-color="#7fc1fc" data-size="small"/>
-                </div>
-                <div class="flex justify-between items-center">
-                    <h5 class="text-gray-700">Online Status</h5>
-                    <input type="checkbox" checked class="switchery" data-color="#7fc1fc" data-size="small"/>
-                </div>
-            </div>
         </div>
     </div>
 

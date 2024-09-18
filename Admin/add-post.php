@@ -58,10 +58,10 @@ if(isset($_POST['submit'])) {
     <link rel="stylesheet" href="https://cdn.materialdesignicons.com/5.4.55/css/materialdesignicons.min.css">
     <script src="../assets/js/modernizr.min.js"></script>
 </head>
-<body class="bg-gray-100">
+<body class="min-h-screen bg-gray-100 ">
     <?php include('../includes/topheader.php'); ?>
     
-    <div id="wrapper" class="flex">
+    <div id="wrapper" class="min-h-screen flex">
         <div id="toggleContent">
             <?php include('../includes/leftsidebar.php'); ?>
         </div>
@@ -142,25 +142,6 @@ if(isset($_POST['submit'])) {
             <button class="text-gray-600" id="close-sidebar">
                 <i class="mdi mdi-close-circle-outline text-2xl"></i>
             </button>
-            <h4 class="text-xl font-bold mb-4">Settings</h4>
-            <div class="space-y-4">
-                <div class="flex justify-between items-center">
-                    <h5 class="text-gray-700">Notifications</h5>
-                    <input type="checkbox" checked class="switchery" data-color="#7fc1fc" data-size="small"/>
-                </div>
-                <div class="flex justify-between items-center">
-                    <h5 class="text-gray-700">API Access</h5>
-                    <input type="checkbox" checked class="switchery" data-color="#7fc1fc" data-size="small"/>
-                </div>
-                <div class="flex justify-between items-center">
-                    <h5 class="text-gray-700">Auto Updates</h5>
-                    <input type="checkbox" checked class="switchery" data-color="#7fc1fc" data-size="small"/>
-                </div>
-                <div class="flex justify-between items-center">
-                    <h5 class="text-gray-700">Online Status</h5>
-                    <input type="checkbox" checked class="switchery" data-color="#7fc1fc" data-size="small"/>
-                </div>
-            </div>
         </div>
     </div>
 

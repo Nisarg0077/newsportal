@@ -101,6 +101,13 @@ if(strlen($_SESSION['login'])==0) {
 </div>
 
 <?php include('../includes/footer.php'); ?>
+    <div class="fixed inset-0 bg-gray-800 bg-opacity-50 z-50 hidden" id="right-sidebar">
+        <div class="bg-white w-64 p-4">
+            <button class="text-gray-600" id="close-sidebar">
+                <i class="mdi mdi-close-circle-outline text-2xl"></i>
+            </button>
+        </div>
+    </div>
 
 <script>
 function validateForm() {
@@ -136,6 +143,22 @@ function validateForm() {
 
     return true;
 }
+
+
+
+
+document.getElementById('user-menu-button').addEventListener('click', function() {
+            const userMenu = document.getElementById('user-menu');
+            userMenu.classList.toggle('hidden');
+        });
+
+        document.getElementById('close-sidebar').addEventListener('click', function() {
+            document.getElementById('right-sidebar').classList.add('hidden');
+        });
+
+        document.getElementById('toggleButton').addEventListener('click', function() {
+            document.getElementById('toggleContent').classList.toggle('hidden');
+        });
 </script>
 
 <script src="../assets/js/jquery.min.js"></script>
