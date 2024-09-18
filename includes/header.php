@@ -22,9 +22,6 @@
                     <a href="about-us.php" class="block font-bold py-2 px-4 rounded hover:bg-gray-700 transition duration-300">About</a>
                 </li>
                 <li>
-                    <a href="index.php" class="block font-bold py-2 px-4 rounded hover:bg-gray-700 transition duration-300">News</a>
-                </li>
-                <li>
                     <a href="contact-us.php" class="block font-bold py-2 px-4 rounded hover:bg-gray-700 transition duration-300">Contact Us</a>
                 </li>
                 <li>
@@ -43,9 +40,6 @@
                 </li>
                 <li>
                     <a href="about-us.php" class="block font-bold py-2 px-4 hover:bg-gray-700 transition duration-300 w-full text-center">About</a>
-                </li>
-                <li>
-                    <a href="index.php" class="block font-bold py-2 px-4 hover:bg-gray-700 transition duration-300 w-full text-center">News</a>
                 </li>
                 <li>
                     <a href="contact-us.php" class="block font-bold py-2 px-4 hover:bg-gray-700 transition duration-300 w-full text-center">Contact Us</a>

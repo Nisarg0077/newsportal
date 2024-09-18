@@ -99,10 +99,6 @@ else{
             <button class="text-gray-600" id="close-sidebar">
                 <i class="mdi mdi-close-circle-outline text-2xl"></i>
             </button>
-            <h4 class="text-xl font-bold mb-4">Settings</h4>
-            <div class="space-y-4">
-                <!-- Sidebar content -->
-            </div>
         </div>
     </div>
 
