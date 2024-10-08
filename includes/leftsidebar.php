@@ -82,7 +82,8 @@
                             <li><a href="contactus.php" style="font-size: .9rem;" class="block py-1.5 px-4 hover:bg-gray-700">Contact us</a></li>
                         </ul>
                     </li>
-
+                    
+                    <?php if($_SESSION['utype']=='1'): ?>
                     <li class="has_sub">
                         <a href="javascript:void(0);" class="block py-1.5 px-4 hover:bg-gray-700 flex items-center justify-between">
                             <div class="flex items-center">
@@ -96,6 +97,7 @@
                             <li><a href="manage-comments.php" style="font-size: .9rem;" class="block py-1.5 px-4 hover:bg-gray-700">Approved Comments</a></li>
                         </ul>
                     </li>
+                    <?php endif; ?>
                 </ul>
             </div>
             <!-- Sidebar -->
