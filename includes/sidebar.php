@@ -2,18 +2,7 @@
 
   <!-- Search Widget -->
   <div class="bg-white rounded-lg shadow-md p-6 mb-8">
-    <h5 class="text-2xl font-bold mb-4">Search</h5>
-    <div>
-      <form name="search" action="search.php" method="post">
-        <div class="flex">
-          <input type="text" name="searchtitle" class="form-control w-full px-3 py-2 border rounded-l" placeholder="Search for..." required>
-          <button class="bg-gray-300 text-gray-700 px-4 py-2 rounded-r" type="submit">Go!</button>
-        </div>
-      </form>
-
-
-      
-    </div>
+  <h5 class="text-2xl font-bold">Search</h5>
     <div class="relative inline-block text-left mt-5 w-full">
   <div>
     <button type="button" class="inline-flex justify-center w-full rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" id="categories-menu-button" aria-expanded="true" aria-haspopup="true">
@@ -23,6 +12,15 @@
       </svg>
     </button>
   </div>
+
+    <div class="mt-6">
+      <form name="search" action="search.php" method="post">
+        <div class="flex">
+          <input type="text" name="searchtitle" class="form-control w-full px-3 py-2 border rounded-l" placeholder="Search for..." required>
+          <button class="bg-gray-300 text-gray-700 px-4 py-2 rounded-r" type="submit">Go!</button>
+        </div>
+      </form>
+      </div>
 
   <div class="w-full origin-top-right absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none hidden" id="categories-menu" role="menu" aria-orientation="vertical" aria-labelledby="categories-menu-button">
     <div class="py-1" role="none">

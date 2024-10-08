@@ -33,15 +33,24 @@ if(isset($_POST['submit'])) {
                 $msg = "Post successfully added";
             } else {
                 $error = "Database query failed: " . mysqli_error($con);
-                echo "<pre>$error</pre>"; // Display detailed error
+                echo "<pre>$error</pre>"; 
             }
         } else {
             $error = "Failed to upload image.";
         }
     }
 }
-?>
 
+// Handle category selection
+$selectedCategory = isset($_POST['category']) ? $_POST['category'] : '';
+$subcategories = [];
+if ($selectedCategory) {
+    $result = mysqli_query($con, "SELECT SubCategoryId, Subcategory FROM tblsubcategory WHERE CategoryId = '$selectedCategory' AND Is_Active = 1");
+    while ($row = mysqli_fetch_assoc($result)) {
+        $subcategories[] = $row;
+    }
+}
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -86,19 +95,19 @@ if(isset($_POST['submit'])) {
                     <form name="addpost" id="addPostForm" method="post" enctype="multipart/form-data">
                         <div class="mb-4">
                             <label class="block text-gray-700">Post Title</label>
-                            <input type="text" class="mt-1 block w-full border border-gray-300 rounded-lg p-2" id="posttitle" name="posttitle" placeholder="Enter title">
+                            <input type="text" class="mt-1 block w-full border border-gray-300 rounded-lg p-2" id="posttitle" name="posttitle" placeholder="Enter title" required>
                         </div>
 
                         <div class="mb-4">
                             <label class="block text-gray-700">Category</label>
-                            <select class="mt-1 block w-full border border-gray-300 rounded-lg p-2" name="category" id="category" onChange="getSubCat(this.value);">
+                            <select class="mt-1 block w-full border border-gray-300 rounded-lg p-2" name="category" id="category">
                                 <option value="">Select Category</option>
                                 <?php
-                                // Fetching active categories
                                 $ret = mysqli_query($con, "SELECT id, CategoryName FROM tblcategory WHERE Is_Active=1");
                                 while($result = mysqli_fetch_array($ret)) {
+                                    $selected = $result['id'] == $selectedCategory ? 'selected' : '';
                                 ?>
-                                    <option value="<?php echo htmlentities($result['id']); ?>"><?php echo htmlentities($result['CategoryName']); ?></option>
+                                    <option value="<?php echo htmlentities($result['id']); ?>" <?php echo $selected; ?>><?php echo htmlentities($result['CategoryName']); ?></option>
                                 <?php } ?>
                             </select>
                         </div>
@@ -107,23 +116,20 @@ if(isset($_POST['submit'])) {
                             <label class="block text-gray-700">Sub Category</label>
                             <select class="w-full p-2 border border-gray-300 rounded" name="subcategory" id="subcategory">
                                 <option value="">Select Sub Category</option>
-                                <?php
-                                $ret = mysqli_query($con, "SELECT SubCategoryId, Subcategory FROM tblsubcategory WHERE Is_Active=1");
-                                while ($result = mysqli_fetch_array($ret)) {
-                                ?>
-                                    <option value="<?php echo htmlentities($result['SubCategoryId']); ?>"><?php echo htmlentities($result['Subcategory']); ?></option>
+                                <?php foreach ($subcategories as $subcategory) { ?>
+                                    <option value="<?php echo htmlentities($subcategory['SubCategoryId']); ?>"><?php echo htmlentities($subcategory['Subcategory']); ?></option>
                                 <?php } ?>
                             </select>
                         </div>
 
                         <div class="mb-4">
                             <label class="block text-gray-700">Post Details</label>
-                            <textarea class="mt-1 block w-full border border-gray-300 rounded-lg p-2" name="postdescription" rows="5"></textarea>
+                            <textarea class="mt-1 block w-full border border-gray-300 rounded-lg p-2" name="postdescription" rows="5" required></textarea>
                         </div>
 
                         <div class="mb-4">
                             <label class="block text-gray-700">Feature Image</label>
-                            <input type="file" class="mt-1 block w-full border border-gray-300 rounded-lg p-2" id="postimage" name="postimage">
+                            <input type="file" class="mt-1 block w-full border border-gray-300 rounded-lg p-2" id="postimage" name="postimage" required>
                         </div>
 
                         <div class="flex justify-end space-x-4">
@@ -146,39 +152,41 @@ if(isset($_POST['submit'])) {
     </div>
 
     <script>
-        document.getElementById('close-sidebar').addEventListener('click', function() {
-            document.getElementById('right-sidebar').classList.add('hidden');
-        });
-        document.getElementById('toggleButton').addEventListener('click', function() {
-            document.getElementById('toggleContent').classList.toggle('hidden');
-        });
-
-        document.getElementById('addPostForm').addEventListener('submit', function(event) {
-            const posttitle = document.getElementById('posttitle').value.trim();
-            const category = document.getElementById('category').value;
-            const subcategory = document.getElementById('subcategory').value;
-            const postdescription = document.querySelector('textarea[name="postdescription"]').value.trim();
-            const postimage = document.getElementById('postimage').files.length;
-
-            if (!posttitle || !category || !subcategory || !postdescription || !postimage) {
-                event.preventDefault(); // Prevent form submission
-                alert('Please fill in all fields and select an image.');
+        document.getElementById('category').addEventListener('change', function() {
+            const categoryId = this.value;
+            
+            if (categoryId) {
+                // Send an AJAX request to fetch subcategories
+                const xhr = new XMLHttpRequest();
+                xhr.open('POST', 'fetch_subcategories.php', true);
+                xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+                xhr.onload = function() {
+                    if (this.status == 200) {
+                        const subcategories = JSON.parse(this.responseText);
+                        const subcategorySelect = document.getElementById('subcategory');
+                        
+                        // Clear existing options
+                        subcategorySelect.innerHTML = '<option value="">Select Sub Category</option>';
+                        
+                        // Populate subcategory dropdown
+                        subcategories.forEach(function(subcategory) {
+                            const option = document.createElement('option');
+                            option.value = subcategory.SubCategoryId;
+                            option.textContent = subcategory.Subcategory;
+                            subcategorySelect.appendChild(option);
+                        });
+                    }
+                };
+                xhr.send('category_id=' + categoryId);
+            } else {
+                // Reset the subcategory dropdown if no category is selected
+                document.getElementById('subcategory').innerHTML = '<option value="">Select Sub Category</option>';
             }
         });
     </script>
 
-    <!-- jQuery  -->
     <script src="../assets/js/jquery.min.js"></script>
     <script src="../assets/js/jquery.app.js"></script>
-    <script>
-        jQuery(document).ready(function(){
-            $('.summernote').summernote({
-                height: 240,
-                minHeight: null,
-                maxHeight: null,
-                focus: false
-            });
-        });
-    </script>
+
 </body>
 </html>
