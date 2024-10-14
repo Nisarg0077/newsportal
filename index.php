@@ -2,15 +2,15 @@
   session_start();
   include('./conn.php');
 
-   // Pagination variables
-   $limit = 10; // Number of posts per page
-   $page = isset($_GET['page']) ? intval($_GET['page']) : 1;
-   $offset = ($page - 1) * $limit;
- 
-   // Query to get the total number of active posts
-   $totalPostsQuery = mysqli_query($con, "SELECT COUNT(*) as total FROM tblposts WHERE Is_Active = 1");
-   $totalPosts = mysqli_fetch_assoc($totalPostsQuery)['total'];
-   $totalPages = ceil($totalPosts / $limit); // Calculate total number of pages
+  // Pagination variables
+  $limit = 10; // Number of posts per page
+  $page = isset($_GET['page']) ? intval($_GET['page']) : 1;
+  $offset = ($page - 1) * $limit;
+
+  // Query to get the total number of active posts
+  $totalPostsQuery = mysqli_query($con, "SELECT COUNT(*) as total FROM tblposts WHERE Is_Active = 1");
+  $totalPosts = mysqli_fetch_assoc($totalPostsQuery)['total'];
+  $totalPages = ceil($totalPosts / $limit); // Calculate total number of pages
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -52,13 +52,14 @@
   </style>
 </head>
 
-<body class="bg-gray-100 w-screen overflow-x-hidden"> <!-- Added overflow-hidden -->
+<body class="bg-gray-100 w-screen overflow-x-hidden">
 
   <!-- Navigation -->
   <?php include('./includes/header.php'); ?>
 
+  <!-- Slider Section -->
   <div class="container px-2 mt-8 mx-auto">
-    <div class="swiper-container w-full overflow-hidden px-4 relative"> <!-- Changed overflow-x-hidden to overflow-hidden -->
+    <div class="swiper-container w-full overflow-hidden px-4 relative">
       <div class="swiper-wrapper w-full">
         <?php 
           $slider_sql = "SELECT id, PostTitle, PostImage FROM tblposts WHERE Is_Active = 1 ORDER BY PostingDate DESC LIMIT 5";
@@ -94,26 +95,13 @@
       <div class="w-full md:w-2/3 lg:w-3/4 mx-auto">
         <!-- Blog Post -->
         <?php 
-          if (isset($_GET['pageno'])) {
-            $pageno = $_GET['pageno'];
-          } else {
-            $pageno = 1;
-          }
-          $no_of_records_per_page = 8;
-          $offset = ($pageno - 1) * $no_of_records_per_page;
-
-          $total_pages_sql = "SELECT COUNT(*) FROM tblposts";
-          $result = mysqli_query($con, $total_pages_sql);
-          $total_rows = mysqli_fetch_array($result)[0];
-          $total_pages = ceil($total_rows / $no_of_records_per_page);
-
           $sqlcmd = "SELECT tblposts.id as pid, tblposts.PostTitle as posttitle, tblposts.PostImage, tblcategory.CategoryName as category, tblcategory.id as cid, tblsubcategory.Subcategory as subcategory, tblposts.PostDetails as postdetails, tblposts.PostingDate as postingdate, tblposts.PostUrl as url 
                      FROM tblposts 
                      LEFT JOIN tblcategory ON tblcategory.id = tblposts.CategoryId 
                      LEFT JOIN tblsubcategory ON tblsubcategory.SubCategoryId = tblposts.SubCategoryId 
                      WHERE tblposts.Is_Active = 1 
                      ORDER BY tblposts.id DESC  
-                     LIMIT $offset, $no_of_records_per_page";
+                     LIMIT $offset, $limit";
           $query = mysqli_query($con, $sqlcmd);
 
           while ($row = mysqli_fetch_array($query)) {
