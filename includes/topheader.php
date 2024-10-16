@@ -11,9 +11,6 @@
         
     </div>
 
-    
-    
-
     <!-- Right(Notification) -->
     <div class="flex items-center">
         <div class="relative">
@@ -24,7 +21,6 @@
             <!-- Dropdown -->
             <div class="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 z-50 hidden" id="user-menu">
                 <p class="px-4 py-2 text-gray-700">Hi, Admin</p>
-                <a href="change-password.php" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Change Password</a>
                 <a href="logout.php" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Logout</a>
             </div>
         </div>
