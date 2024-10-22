@@ -10,31 +10,27 @@ if(strlen($_SESSION['login']) == 0) {
 }
 
 if(isset($_POST['update'])) {
-    // Use mysqli_real_escape_string to escape special characters in input data
     $posttitle = mysqli_real_escape_string($con, $_POST['posttitle']);
     $catid = intval($_POST['category']);
     $subcatid = intval($_POST['subcategory']);
-    $postdetails = mysqli_real_escape_string($con, $_POST['postdescription']); // Handles HTML content
+    $postdetails = mysqli_real_escape_string($con, $_POST['postdescription']); // Use mysqli_real_escape_string for safety
     $lastuptdby = mysqli_real_escape_string($con, $_SESSION['login']);
     $arr = explode(" ", $posttitle);
     $url = implode("-", $arr);
     $status = 1;
     $postid = intval($_GET['pid']);
 
-    // Use prepared statements to prevent SQL injection
-    $query = "UPDATE tblposts SET PostTitle=?, CategoryId=?, SubCategoryId=?, PostDetails=?, PostUrl=?, Is_Active=?, lastUpdatedBy=? WHERE id=?";
-    if ($stmt = $con->prepare($query)) {
-        $stmt->bind_param('siiissii', $posttitle, $catid, $subcatid, $postdetails, $url, $status, $lastuptdby, $postid);
-        if ($stmt->execute()) {
-            $msg = "Post updated successfully";
-        } else {
-            $error = "Something went wrong. Please try again.";
-        }
-        $stmt->close();
+    // Prepare your update query
+    $query = "UPDATE tblposts SET PostTitle='$posttitle', CategoryId='$catid', SubCategoryId='$subcatid', PostDetails='$postdetails', PostUrl='$url', Is_Active='$status', lastUpdatedBy='$lastuptdby' WHERE id='$postid'";
+
+    // Execute the query
+    if (mysqli_query($con, $query)) {
+        $msg = "Post updated successfully";
     } else {
-        $error = "Database query preparation failed.";
+        $error = "Something went wrong. Please try again: " . mysqli_error($con);
     }
 }
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
